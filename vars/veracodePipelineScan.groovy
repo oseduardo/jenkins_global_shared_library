@@ -1,3 +1,3 @@
 def call() {
-    sh "echo Hole Mundo"
+    echo "[INFO] Veracode SAST - Pipeline Scan"
 }
