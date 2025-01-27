@@ -5,7 +5,7 @@ def call(String vID, String vKEY) {
         sh "curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip"
         unzip pipeline-scan-LATEST.zip
         echo '[INFO] --- Starting Pipeline Scan execution...'
-        def STATUS = sh "java -jar pipeline-scan.jar -vid $vID -vkey $vKEY --file verademo.war -so true"
+        def STATUS = sh returnStdout:true, script: "java -jar pipeline-scan.jar -vid ${vID} -vkey ${vKEY} --file verademo.war -so true"
         sh """
             if [ $STATUS -gt 0 ];
             then
