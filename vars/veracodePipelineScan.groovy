@@ -6,7 +6,7 @@ def call(String vID, String vKEY) {
         unzip pipeline-scan-LATEST.zip
         echo '[INFO] --- Starting Pipeline Scan execution...'
         java -jar pipeline-scan.jar -vid $vID -vkey $vKEY --file verademo.war -so true
-        STATUS=${?}
+        STATUS=$?
         if [ $STATUS -gt 0 ];
         then
             echo '[INFO] --- Pipeline Scan has finished.'
