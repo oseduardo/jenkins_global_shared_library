@@ -3,7 +3,7 @@ def call(String vID, String vKEY) {
     echo "[INFO] Downloading Pipeline Scan (Latest Version)..."
     script {
         sh "curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip"
-        sh "unzip pipeline-scan-LATEST.zip"
+        sh "unzip -o pipeline-scan-LATEST.zip"
         echo '[INFO] --- Starting Pipeline Scan execution...'
         def STATUS = sh returnStdout:true, script: "java -jar pipeline-scan.jar -vid ${vID} -vkey ${vKEY} --file verademo.war -so true"
         sh """
