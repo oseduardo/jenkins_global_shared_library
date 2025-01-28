@@ -6,6 +6,7 @@ def call(String vID, String vKEY) {
         sh "unzip -o pipeline-scan-LATEST.zip"
         echo '[INFO] --- Starting Pipeline Scan execution...'
         def STATUS = sh returnStdout:true, script: "java -jar pipeline-scan.jar -vid ${vID} -vkey ${vKEY} --file ./app/target/verademo.war -so true"
+        echo "STATUS: ${STATUS}"
         sh """
             if [ $STATUS -gt 0 ];
             then
