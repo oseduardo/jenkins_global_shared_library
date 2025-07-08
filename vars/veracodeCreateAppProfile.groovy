@@ -9,15 +9,15 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     def shellScript = libraryResource 'com/oseduardo/scripts/linux/veracodeCreateAppProfile.sh'
 
     //Using class ProcessBuilder 
-    //def pb = new ProcessBuilder(shellScript).inheritIO()
-    //Map<String, String> env = pb.environment()
-    //env.put( "API-ID", ${VID} )
-    //env.put( "API-Key", ${VKEY} )
-    //env.put( "AppName", ${appProfileName} )
-    //env.put( "ProductName", ${PRODUCT_NAME} )
-    //env.put( "ProductID", ${PRODUCT_ID} )
-    //Process p = pb.start()
-    //p.waitFor()
+    def pb = new ProcessBuilder(shellScript).inheritIO()
+    Map<String, String> env = pb.environment()
+    env.put( "API-ID", "${VID}" )
+    env.put( "API-Key", "${VKEY}" )
+    env.put( "AppName", "${appProfileName}" )
+    env.put( "ProductName", "${PRODUCT_NAME}" )
+    env.put( "ProductID", "${PRODUCT_ID}" )
+    Process p = pb.start()
+    p.waitFor()
 
 
     //def script = "./file.sh"
@@ -28,20 +28,20 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     // // myenv = new HashMap(System.getenv()) myenv.put("variable", variable ) 
     // // we have to convert to array before calling execute String[] envarray = myenv.collect { k, v -> "$k=$v" }
 
-    def myenv = new HashMap(System.getenv())
-    myenv.put("API-ID",${VID})
-    myenv.put("API-Key",${VKEY})
-    myenv.put("AppName",${appProfileName})
-    myenv.put("ProductName",${PRODUCT_NAME})
-    myenv.put("ProductID",${PRODUCT_ID})
-    String[] envarray = myenv.collect()
+    //def myenv = new HashMap(System.getenv())
+    //myenv.put("API-ID",${VID})
+    //myenv.put("API-Key",${VKEY})
+    //myenv.put("AppName",${appProfileName})
+    //myenv.put("ProductName",${PRODUCT_NAME})
+    //myenv.put("ProductID",${PRODUCT_ID})
+    //String[] envarray = myenv.collect()
 
-    def std_out = new StringBuilder()
-    def std_err = new StringBuilder()
+    //def std_out = new StringBuilder()
+    //def std_err = new StringBuilder()
 
-    proc = shellScript.execute( envarray, null )
+    //proc = shellScript.execute( envarray, null )
 
-    proc.consumeProcessOutput(std_out, std_err)
+    //proc.consumeProcessOutput(std_out, std_err)
 
-    println std_out
+    //println std_out
 }
