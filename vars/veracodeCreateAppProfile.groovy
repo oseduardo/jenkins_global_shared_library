@@ -10,7 +10,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //echo "${shellScript} | tee myShellScriptFile.sh"
     sh "printf '${shellScript}' > myShellScriptFile.sh"
     sh "ls"
-    //sh "cat ./myShellScriptFile.sh"
+    sh "cat myShellScriptFile.sh"
 
     //Using class ProcessBuilder 
     def pb = new ProcessBuilder("myShellScriptFile.sh").inheritIO()
