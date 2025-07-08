@@ -3,9 +3,15 @@
 #$1 API-ID
 #$2 API-Key
 #$3 AppName
+#$4 ProductName
+#$5 ProductID
 
 JAVA_WRAPPER_LOCATION="."
 
+echo '[INFO] Sheell Script Parameter [AppName]: ' $3
+echo '[INFO] Sheell Script Parameter [ProductName]: ' $4
+echo '[INFO] Sheell Script Parameter [ProductID]: ' $5
+exit 0
 echo '[INFO] ------------------------------------------------------------------------'
 echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
 if `wget --no-check-certificate https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -O VeracodeJavaAPI.jar`; then
