@@ -17,6 +17,6 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     env.put( "ProductName", ${PRODUCT_NAME} )
     env.put( "ProductID", ${PRODUCT_ID} )
     
-    Process p = pb.start()
-    p.waitFor()
+    //Process p = pb.start()
+    //p.waitFor()
 }
