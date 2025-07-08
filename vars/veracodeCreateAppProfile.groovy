@@ -8,7 +8,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     
     def shellScript = libraryResource 'com/oseduardo/scripts/linux/veracodeCreateAppProfile.sh'
     echo "${shellScript} > myShellScriptFile.sh"
-    sh "cat ./myShellScriptFile.sh"
+    sh "ls"
+    //sh "cat ./myShellScriptFile.sh"
 
     //Using class ProcessBuilder 
     def pb = new ProcessBuilder("./myShellScriptFile").inheritIO()
