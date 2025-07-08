@@ -7,7 +7,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     echo "[INFO] APP PROFILE NAME: ${appProfileName}"
     
     def shellScript = libraryResource 'com/oseduardo/scripts/linux/veracodeCreateAppProfile.sh'
-    echo "${shellScript} | tee myShellScriptFile.sh"
+    //echo "${shellScript} | tee myShellScriptFile.sh"
+    sh "printf '${ShellScript}' > myShellScriptFile.sh"
     sh "ls"
     //sh "cat ./myShellScriptFile.sh"
 
