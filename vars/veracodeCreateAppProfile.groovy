@@ -7,11 +7,11 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     echo "[INFO] APP PROFILE NAME: ${appProfileName}"
     
     def shellScript = libraryResource 'com/oseduardo/scripts/linux/veracodeCreateAppProfile.sh'
-    echo "${shellScript} > myScriptFile.sh"
-    sh "cat myScriptFile"
+    echo "${shellScript} > myShellScriptFile.sh"
+    sh "cat ./myShellScriptFile.sh"
 
     //Using class ProcessBuilder 
-    def pb = new ProcessBuilder(shellScript).inheritIO()
+    def pb = new ProcessBuilder("./myShellScriptFile").inheritIO()
     Map<String, String> env = pb.environment()
     env.put( "API-ID", "${VID}" )
     env.put( "API-Key", "${VKEY}" )
