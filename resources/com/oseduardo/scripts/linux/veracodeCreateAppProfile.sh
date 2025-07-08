@@ -7,10 +7,10 @@
 #$5 ProductID
 
 JAVA_WRAPPER_LOCATION="."
-
-echo '[INFO] Sheell Script Parameter [AppName]: ' $3
-echo '[INFO] Sheell Script Parameter [ProductName]: ' $4
-echo '[INFO] Sheell Script Parameter [ProductID]: ' $5
+echo 'Hasta aqui llego!!!'
+echo '[INFO] Shell Script Parameter [AppName]: ' $3
+echo '[INFO] Shell Script Parameter [ProductName]: ' $4
+echo '[INFO] Shell Script Parameter [ProductID]: ' $5
 exit 0
 echo '[INFO] ------------------------------------------------------------------------'
 echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
