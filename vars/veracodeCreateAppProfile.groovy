@@ -16,8 +16,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
 
     //Using class ProcessBuilder 
     echo "[INFO] Starting ProcessBuilder..."
-    //def pb = new ProcessBuilder("bash", "-c", "ls").inheritIO()
-    def pb = new ProcessBuilder("./testFile.sh").inheritIO()
+    def pb = new ProcessBuilder("bash", "pwd").inheritIO()
+    //def pb = new ProcessBuilder("./testFile.sh").inheritIO()
     //Map<String, String> env = pb.environment()
     //env.put( "API-ID", "${VID}" )
     //env.put( "API-Key", "${VKEY}" )
@@ -25,6 +25,10 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //env.put( "ProductName", "${PRODUCT_NAME}" )
     //env.put( "ProductID", "${PRODUCT_ID}" )
     Process p = pb.start()
+    InputStreamReader isr = new InputStreamReader(p.inputStream)
+    char[] cbuf = new char[2048];  //read 1024 characters, increse to higher amount if necessary
+    isr.read(cbuf);
+    log.info(new String(cbuf))
     p.waitFor()
     echo "[INFO] ProcessBuilder Finished"
 
