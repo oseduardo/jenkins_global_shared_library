@@ -1,7 +1,3 @@
-import java.io.BufferedReader
-import java.io.File
-import java.io.IOException
-import java.io.InputStreamReader
 def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, String VKEY) {
     //This procedure is created to customize the app profile creation process for Transbank's POV considering they have to populate a couple of custom
     //fields (product_name, product_id); in this case it's neccesary to use wrappers to create app profile incluidng custom fields
@@ -28,10 +24,10 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //env.put( "ProductID", "${PRODUCT_ID}" )
     Process p = pb.start()
     // Read the output from the process
-    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-    String line;
+    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))
+    String line
     while ((line = reader.readLine()) != null) {
-        System.out.println(line);
+        System.out.println(line)
     }
     p.waitFor()
     echo "[INFO] ProcessBuilder Finished"
