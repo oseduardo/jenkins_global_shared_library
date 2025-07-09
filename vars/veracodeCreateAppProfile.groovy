@@ -13,7 +13,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     sh "cat myShellScriptFile.sh"
 
     //Using class ProcessBuilder 
-    //def pb = new ProcessBuilder("myShellScriptFile.sh").inheritIO()
+    def pb = new ProcessBuilder("myShellScriptFile.sh").inheritIO()
     //Map<String, String> env = pb.environment()
     //env.put( "API-ID", "${VID}" )
     //env.put( "API-Key", "${VKEY}" )
