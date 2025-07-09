@@ -3,6 +3,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //fields (product_name, product_id); in this case it's neccesary to use wrappers to create app profile incluidng custom fields
     def appProfileName = new String("${PRODUCT_ID}_${REPO_NAME}")
     def strJavaWrapperLocation = new String (".")
+    def appID = new String ("")
     echo "[INFO] Veracode - Creating a New App Profile"
     echo "[INFO] REPO NAME: ${REPO_NAME}"
     echo "[INFO] APP PROFILE NAME: ${appProfileName}"
@@ -24,7 +25,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             int intBeginXML = "${appIDResponse}".indexOf("<?xml")
             int intEndXML = "${appIDResponse}".indexOf("</applist>")
             String strXML = "${appIDResponse}".substring(intBeginXML, intEndXML + 10)
-            echo "strXML: ${strXML}"
+            def parseXML = new XmlSluper().parseText(strXML)
+            echo "strXML: ${parseXML}"
         }
 
     } catch(Exception ex) {
@@ -46,11 +48,6 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
 
     //Using class ProcessBuilder 
     //echo "[INFO] Starting ProcessBuilder..."
-
-    myOutput = "pwd".execute().text
-    echo "myOutput: ${myOutput}"
-
-
     //def pb = new ProcessBuilder("sh", "-c", "pwd").inheritIO()
     //def pb = new ProcessBuilder("./testFile.sh").inheritIO()
     //Map<String, String> env = pb.environment()
