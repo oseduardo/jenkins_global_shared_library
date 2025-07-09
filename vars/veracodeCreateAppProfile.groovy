@@ -23,6 +23,12 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //env.put( "ProductName", "${PRODUCT_NAME}" )
     //env.put( "ProductID", "${PRODUCT_ID}" )
     Process p = pb.start()
+    // Read the output from the process
+    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+    String line;
+    while ((line = reader.readLine()) != null) {
+        System.out.println(line);
+    }
     p.waitFor()
     echo "[INFO] ProcessBuilder Finished"
 
