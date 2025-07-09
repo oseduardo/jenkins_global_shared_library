@@ -14,7 +14,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     sh "ls"
 
     //Using class ProcessBuilder 
-    def pb = new ProcessBuilder("#!/bin/bash ls -all").inheritIO()
+    def pb = new ProcessBuilder("bash", "-c", "ls").inheritIO()
     //Map<String, String> env = pb.environment()
     //env.put( "API-ID", "${VID}" )
     //env.put( "API-Key", "${VKEY}" )
