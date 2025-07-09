@@ -27,7 +27,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
 
 
 
-    def script = "./myShellScriptFile.sh"
+    def script = "myShellScriptFile.sh"
     //def varAPIID = "${VID}"
     //def varAPIKey = "${VKEY}"
     //def varAppProfileName = "${appProfileName}"
