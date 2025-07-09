@@ -11,7 +11,9 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     echo '[INFO] ------------------------------------------------------------------------'
     echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
     def response = new String("")
-    response = "wget --no-check-certificate https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -O VeracodeJavaAPI.jar".execute().text
+    response = "which wget".execute().text
+    echo "response: ${response}"
+    //response = "wget --no-check-certificate https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -O VeracodeJavaAPI.jar".execute().text
     //try {
     //    response = "wget --no-check-certificate https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -O VeracodeJavaAPI.jar".execute().text
     //} catch(Exception ex) {
