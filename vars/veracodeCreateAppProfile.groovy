@@ -10,14 +10,14 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //We have to download the JAVA Wrapper
     echo '[INFO] ------------------------------------------------------------------------'
     echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
-    response = "which curl".execute().text
-    echo "response: ${response}"
-    //response = "wget --no-check-certificate https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -O VeracodeJavaAPI.jar".execute().text
-    //try {
-    //    response = "wget --no-check-certificate https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -O VeracodeJavaAPI.jar".execute().text
-    //} catch(Exception ex) {
-    //    println(ex.text)
-    //}
+    //response = "curl https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -o VeracodeJavaAPI.jar".execute().text
+    //echo "response: ${response}"
+    //response = "curl https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -o VeracodeJavaAPI.jar".execute().text
+    try {
+        response = "curl https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -o VeracodeJavaAPI.jar".execute().text
+    } catch(Exception ex) {
+        println(ex.text)
+    }
 
 
 
