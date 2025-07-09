@@ -7,21 +7,20 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     echo "[INFO] REPO NAME: ${REPO_NAME}"
     echo "[INFO] APP PROFILE NAME: ${appProfileName}"
     
-    //We have to download the JAVA Wrapper
+    //Download Java API Wrapper
     echo '[INFO] ------------------------------------------------------------------------'
     echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
-    //response = "curl https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -o VeracodeJavaAPI.jar".execute().text
-    //echo "response: ${response}"
-    //response = "curl https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -o VeracodeJavaAPI.jar".execute().text
     try {
         response = "curl https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -o VeracodeJavaAPI.jar".execute().text
-        //assert response['out'] == ''
         wrapperVersion = "java -jar VeracodeJavaAPI.jar -wrapperversion".execute().text
         echo "Java API Wrapper Version: ${wrapperVersion}"
+
+        //Validate if appProfileName exists; if so, the AppID is captured
+        appID = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -vid ${VID} -vkey ${VKEY} -action GetAppList | grep -w \"${appProfileName}\" | sed -n 's/.* app_id=\"\([0-9]*\)\" .*/\1/p'".execute().text
+        echo "appID: ${appID}"
     } catch(Exception ex) {
         println(ex)
     }
-
 
 
 
