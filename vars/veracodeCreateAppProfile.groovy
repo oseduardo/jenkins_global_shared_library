@@ -26,8 +26,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             int intEndXML = "${appIDResponse}".indexOf("</applist>")
             String strXML = "${appIDResponse}".substring(intBeginXML, intEndXML + 10)
             def parseXML = new XmlSlurper().parseText("${strXML}")
-            lenght = "${parseXML}".lenght().text
-            echo "Lenght: ${lenght}"
+            length = "${parseXML}".length().text
+            echo "Length: ${length}"
         }
 
     } catch(Exception ex) {
