@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 #$1 API-ID
 #$2 API-Key

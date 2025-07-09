@@ -16,7 +16,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
 
     //Using class ProcessBuilder 
     echo "[INFO] Starting ProcessBuilder..."
-    def pb = new ProcessBuilder("bash", "pwd").inheritIO()
+    def pb = new ProcessBuilder("sh", "-c", "pwd").inheritIO()
     //def pb = new ProcessBuilder("./testFile.sh").inheritIO()
     //Map<String, String> env = pb.environment()
     //env.put( "API-ID", "${VID}" )
