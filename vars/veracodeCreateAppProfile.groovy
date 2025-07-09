@@ -2,20 +2,36 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //This procedure is created to customize the app profile creation process for Transbank's POV considering they have to populate a couple of custom
     //fields (product_name, product_id); in this case it's neccesary to use wrappers to create app profile incluidng custom fields
     def appProfileName = new String("${PRODUCT_ID}_${REPO_NAME}")
+    def strJavaWrapperLocation = = new String (".")
     echo "[INFO] Veracode - Creating a New App Profile"
     echo "[INFO] REPO NAME: ${REPO_NAME}"
     echo "[INFO] APP PROFILE NAME: ${appProfileName}"
     
-    def shellScript = libraryResource 'com/oseduardo/scripts/linux/veracodeCreateAppProfile.sh'
-    echo "${shellScript}"
-    sh "printf '${shellScript}' > myShellScriptFile.sh"
-    sh "printf '#/bin/bash pwd' > testFile.sh"
-    sh "ls"
-    sh "cat myShellScriptFile.sh"
-    sh "ls"
+    //We have to download the JAVA Wrapper
+    echo '[INFO] ------------------------------------------------------------------------'
+    echo '[INFO] DOWNLOADING VERACODE JAVA WRAPPER'
+    try {
+        def response = "wget --no-check-certificate https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -O VeracodeJavaAPI.jar".execute().text
+    } catch(Exception ex) {
+        println(ex.text)
+    }
+
+
+
+
+
+
+
+    //def shellScript = libraryResource 'com/oseduardo/scripts/linux/veracodeCreateAppProfile.sh'
+    //echo "${shellScript}"
+    //sh "printf '${shellScript}' > myShellScriptFile.sh"
+    //sh "printf '#/bin/bash pwd' > testFile.sh"
+    //sh "ls"
+    //sh "cat myShellScriptFile.sh"
+    //sh "ls"
 
     //Using class ProcessBuilder 
-    echo "[INFO] Starting ProcessBuilder..."
+    //echo "[INFO] Starting ProcessBuilder..."
 
     myOutput = "pwd".execute().text
     echo "myOutput: ${myOutput}"
@@ -36,7 +52,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //myIsr.read(cbuf);
     //log.info(new String(cbuf))
     //p.waitFor()
-    echo "[INFO] ProcessBuilder Finished"
+    //echo "[INFO] ProcessBuilder Finished"
 
 
 
