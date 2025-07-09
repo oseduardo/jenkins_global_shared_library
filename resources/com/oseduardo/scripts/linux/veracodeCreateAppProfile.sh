@@ -7,7 +7,7 @@
 #$5 ProductID
 
 JAVA_WRAPPER_LOCATION="."
-echo 'Hasta aqui llego!!!'
+
 echo '[INFO] Shell Script Parameter [AppName]: ' $3
 echo '[INFO] Shell Script Parameter [ProductName]: ' $4
 echo '[INFO] Shell Script Parameter [ProductID]: ' $5
