@@ -1,3 +1,7 @@
+import java.io.BufferedReader
+import java.io.File
+import java.io.IOException
+import java.io.InputStreamReader
 def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, String VKEY) {
     //This procedure is created to customize the app profile creation process for Transbank's POV considering they have to populate a couple of custom
     //fields (product_name, product_id); in this case it's neccesary to use wrappers to create app profile incluidng custom fields
