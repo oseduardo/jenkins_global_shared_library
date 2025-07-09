@@ -30,7 +30,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             //appID = parseXML.'*'.get(3).name()
             //appID = parseXML.'*'[0].name()
             //appID = parseXML.'*'[0]
-            appID = parseXML.'*'[0][0]
+            appID = parseXML.'*'[0].'*'[0]
             //appID = parseXML.'*'.find { it.'*'.'@app_name' == "verademo" }.name()
             echo "appID: ${appID}"
         }
