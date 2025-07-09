@@ -29,7 +29,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             def parseXML = new XmlParser().parse(strXML)
             echo "parseXML: ${parseXML}"
             //appID = parseXML.value.appslist.app.findAll { app -> app.@app_name == "verademo" }*.app_id
-            appID = parseXML.value.appslist.app[0]
+            appID = parseXML.value.appslist
             echo "appID: ${appID}"
         }
 
