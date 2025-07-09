@@ -25,9 +25,10 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //env.put( "ProductName", "${PRODUCT_NAME}" )
     //env.put( "ProductID", "${PRODUCT_ID}" )
     Process p = pb.start()
-    InputStreamReader isr = new InputStreamReader(p.inputStream)
+    InputStream myInputStream = new p.getInputStream()
+    InputStreamReader myIsr = new InputStreamReader(myInputStream)
     char[] cbuf = new char[2048];  //read 1024 characters, increse to higher amount if necessary
-    isr.read(cbuf);
+    myIsr.read(cbuf);
     log.info(new String(cbuf))
     p.waitFor()
     echo "[INFO] ProcessBuilder Finished"
