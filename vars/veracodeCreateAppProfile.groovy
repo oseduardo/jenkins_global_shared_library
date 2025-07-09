@@ -16,7 +16,12 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
 
     //Using class ProcessBuilder 
     echo "[INFO] Starting ProcessBuilder..."
-    def pb = new ProcessBuilder("sh", "-c", "pwd").inheritIO()
+
+    myOutput = "pwd".execute().text
+    echo "myOutput: ${myOutput}"
+
+
+    //def pb = new ProcessBuilder("sh", "-c", "pwd").inheritIO()
     //def pb = new ProcessBuilder("./testFile.sh").inheritIO()
     //Map<String, String> env = pb.environment()
     //env.put( "API-ID", "${VID}" )
@@ -24,13 +29,13 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //env.put( "AppName", "${appProfileName}" )
     //env.put( "ProductName", "${PRODUCT_NAME}" )
     //env.put( "ProductID", "${PRODUCT_ID}" )
-    Process p = pb.start()
-    InputStream myInputStream = p.getInputStream()
-    InputStreamReader myIsr = new InputStreamReader(myInputStream)
-    char[] cbuf = new char[2048];  //read 1024 characters, increse to higher amount if necessary
-    myIsr.read(cbuf);
-    log.info(new String(cbuf))
-    p.waitFor()
+    //Process p = pb.start()
+    //InputStream myInputStream = p.getInputStream()
+    //InputStreamReader myIsr = new InputStreamReader(myInputStream)
+    //char[] cbuf = new char[2048];  //read 1024 characters, increse to higher amount if necessary
+    //myIsr.read(cbuf);
+    //log.info(new String(cbuf))
+    //p.waitFor()
     echo "[INFO] ProcessBuilder Finished"
 
 
