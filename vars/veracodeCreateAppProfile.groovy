@@ -9,13 +9,15 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     def shellScript = libraryResource 'com/oseduardo/scripts/linux/veracodeCreateAppProfile.sh'
     echo "${shellScript}"
     sh "printf '${shellScript}' > myShellScriptFile.sh"
+    sh "printf '#/bin/bash pwd' > testFile.sh"
     sh "ls"
     sh "cat myShellScriptFile.sh"
     sh "ls"
 
     //Using class ProcessBuilder 
     echo "[INFO] Starting ProcessBuilder..."
-    def pb = new ProcessBuilder("bash", "-c", "ls").inheritIO()
+    //def pb = new ProcessBuilder("bash", "-c", "ls").inheritIO()
+    def pb = new ProcessBuilder("./testFile.sh").inheritIO()
     //Map<String, String> env = pb.environment()
     //env.put( "API-ID", "${VID}" )
     //env.put( "API-Key", "${VKEY}" )
@@ -23,12 +25,6 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //env.put( "ProductName", "${PRODUCT_NAME}" )
     //env.put( "ProductID", "${PRODUCT_ID}" )
     Process p = pb.start()
-    // Read the output from the process
-    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))
-    String line
-    while ((line = reader.readLine()) != null) {
-        System.out.println(line)
-    }
     p.waitFor()
     echo "[INFO] ProcessBuilder Finished"
 
