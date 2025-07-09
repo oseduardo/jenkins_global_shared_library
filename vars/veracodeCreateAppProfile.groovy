@@ -14,12 +14,12 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
 
     //Using class ProcessBuilder 
     def pb = new ProcessBuilder("myShellScriptFile.sh").inheritIO()
-    //Map<String, String> env = pb.environment()
-    //env.put( "API-ID", "${VID}" )
-    //env.put( "API-Key", "${VKEY}" )
-    //env.put( "AppName", "${appProfileName}" )
-    //env.put( "ProductName", "${PRODUCT_NAME}" )
-    //env.put( "ProductID", "${PRODUCT_ID}" )
-    //Process p = pb.start()
-    //p.waitFor()
+    Map<String, String> env = pb.environment()
+    env.put( "API-ID", "${VID}" )
+    env.put( "API-Key", "${VKEY}" )
+    env.put( "AppName", "${appProfileName}" )
+    env.put( "ProductName", "${PRODUCT_NAME}" )
+    env.put( "ProductID", "${PRODUCT_ID}" )
+    Process p = pb.start()
+    p.waitFor()
 }
