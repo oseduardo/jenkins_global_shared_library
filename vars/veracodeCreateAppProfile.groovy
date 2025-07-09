@@ -26,7 +26,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             int intEndXML = "${appIDResponse}".indexOf("</applist>")
             strXML = "${appIDResponse}".substring(intBeginXML, intEndXML + 10)
             echo "strXML: ${strXML}"
-            def parseXML = new XmlParser().parseText("${strXML}")
+            def parseXML = new XmlParser().parse(strXML)
+            echo "parseXML: ${parseXML}"
             //appID = parseXML.value.appslist.app.findAll { app -> app.@app_name == "verademo" }*.app_id
             appID = parseXML.value.appslist.app[0]
             echo "appID: ${appID}"
