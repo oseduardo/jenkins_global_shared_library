@@ -17,8 +17,14 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
 
         //Validate if appProfileName exists; if so, the AppID is captured
         //appID = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -vid ${VID} -vkey ${VKEY} -action GetAppList | grep -w \"${appProfileName}\" | sed -n 's/.* app_id=\"\([0-9]*\)\" .*/\1/p'".execute().text
-        appID = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -vid ${VID} -vkey ${VKEY} -action GetAppList | grep -w \"${appProfileName}\"".execute().text
-        echo "appID: ${appID}"
+        appIDResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -vid ${VID} -vkey ${VKEY} -action GetAppList".execute().text
+        echo "appID: ${appIDResponse}"
+
+        if("${appIDResponse}" != ""){
+            int intBeginXML = "${appIDResponse}".indexOf("<?xml")
+            echo "${intBeginXML}"
+        }
+
     } catch(Exception ex) {
         println(ex)
     }
