@@ -19,7 +19,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
         wrapperVersion = "java -jar VeracodeJavaAPI.jar -wrapperversion".execute().text
         echo "Java API Wrapper Version: ${wrapperVersion}"
     } catch(Exception ex) {
-        println(ex.text)
+        println(ex)
     }
 
 
