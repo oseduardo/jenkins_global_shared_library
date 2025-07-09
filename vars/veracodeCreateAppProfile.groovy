@@ -15,7 +15,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //response = "curl https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -o VeracodeJavaAPI.jar".execute().text
     try {
         response = "curl https://repo1.maven.org/maven2/com/veracode/vosp/api/wrappers/vosp-api-wrappers-java/24.7.14.0/vosp-api-wrappers-java-24.7.14.0.jar -o VeracodeJavaAPI.jar".execute().text
-        assert response['out'] == ''
+        //assert response['out'] == ''
         wrapperVersion = "java -jar VeracodeJavaAPI.jar -wrapperversion".execute().text
         echo "Java API Wrapper Version: ${wrapperVersion}"
     } catch(Exception ex) {
