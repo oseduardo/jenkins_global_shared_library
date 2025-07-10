@@ -5,6 +5,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     def strJavaWrapperLocation = new String (".")
     def appID = new String ("")
     echo "[INFO] Veracode - Creating a New App Profile"
+    echo "[INFO] PRODUCT NAME: ${PRODUCT_NAME}"
     echo "[INFO] REPO NAME: ${REPO_NAME}"
     echo "[INFO] APP PROFILE NAME: ${appProfileName}"
     
@@ -82,9 +83,9 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                         try {
                             //Updating field "product_name"
                             echo "[INFO] Updating product_name custom field in app profile ${appProfileName}"
-                            productNameUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_name -customfieldvalue '${PRODUCT_NAME}'".execute().text
+                            productNameUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_name -customfieldvalue ${PRODUCT_NAME}".execute().text
                             echo "[INFO] Updating product_id custom field in app profile ${appProfileName}"
-                            productIDUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_id -customfieldvalue '${PRODUCT_ID}'".execute().text
+                            productIDUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_id -customfieldvalue ${PRODUCT_ID}".execute().text
                             echo "[INFO] Custom fields product_name and product_id have been updated succesfully"
                         } catch(Exception ex) {
                             println(ex)
