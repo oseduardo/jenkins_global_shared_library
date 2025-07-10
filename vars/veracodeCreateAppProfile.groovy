@@ -27,21 +27,6 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             def parseXML = new XmlParser().parseText(strXML)
             echo "parseXML: ${parseXML}"
 
-            /******** Prueba REGEX *************/
-            //def tmpText = "[{https://analysiscenter.veracode.com/schema/2.0/applist}app[attributes={app_id=488174, app_name=verademo, policy_updated_date=2025-07-08T21:05:39-04:00}; value=[]]"
-            //assert tmpText =~ /(.*)(app_name=verademo)(,|;)(.*)/
-            //def matcher = tmpText =~ /(.*)(app_name=verademo)(,|;)(.*)/
-            //echo "Matcher Size: " + "${matcher}"[1].toString()
-            //echo "Prueba REGEX - matcher: ${matcher}[0]"
-            //myIndex = tmpText.indexOf(/(.*)(app_name=verademo)(,|;)(.*)/).toString()
-            //echo "myIndex: ${myIndex}"
-            /***********************************/
-
-            /******** Prueba 2 *************/
-            //def tmpText = "{https://analysiscenter.veracode.com/schema/2.0/applist}app[attributes={app_id=2644922, app_name=ppag_verademo_jenkins}; value=[]]"
-            //temp = tmpText.indexOf("app_name=ppag_verademo_jenkins}")
-            //echo "temp Index de mierda: ${temp}"
-            //if(tmpText.indexOf("app_name=verademo,") != -1){ //There's a "," after app profile name
             if(parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString() != "[]"){ //There's a "," after app profile name
                 appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString()
                 intIndexAppName = "${appXMLRecord}".indexOf(", app_name=${appProfileName},")
@@ -50,16 +35,13 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                 appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName}}") != -1 }.toString()
                 intIndexAppName = "${appXMLRecord}".indexOf(", app_name=${appProfileName}}")
             }
-            /***********************************/
 
             echo "Index App Name: ${intIndexAppName}"
             indexAppID = "${appXMLRecord}".indexOf("app_id=")
             echo "Index App ID: ${indexAppID}"
 
-            //appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName}") != -1 }.toString()
             echo "appXMLRecord: ${appXMLRecord}"
             if("${appXMLRecord}" != "[]"){
-                //appID = appXMLRecord.substring("${appXMLRecord}".indexOf("app_id=") + 7,"${appXMLRecord}".indexOf(", app_name=${appProfileName}"))
                 appID = appXMLRecord.substring("${appXMLRecord}".indexOf("app_id=") + 7,intIndexAppName)
                 echo "appID: ${appID}"
             }
@@ -89,10 +71,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                         echo "Index App Name: ${intIndexAppName}"
                     }
 
-                    //appXMLRecord2 = parseXML2.'*'.findAll { it.toString().indexOf("app_name=${appProfileName}") != -1 }.toString()
                     echo "appXMLRecord2: ${appXMLRecord2}"
                     if("${appXMLRecord2}" != "[]"){
-                        //appID2 = appXMLRecord2.substring("${appXMLRecord2}".indexOf("app_id=") + 7,"${appXMLRecord2}".indexOf(", app_name=${appProfileName}"))
                         appID2 = appXMLRecord2.substring("${appXMLRecord2}".indexOf("app_id=") + 7,intIndexAppName)
                         echo "appID2: ${appID2}"
 
