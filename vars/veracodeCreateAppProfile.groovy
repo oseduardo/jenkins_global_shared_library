@@ -53,6 +53,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             /***********************************/
 
             echo "Index App Name: ${intIndexAppName}"
+            indexAppID = "${appXMLRecord}".indexOf("app_id=")
+            echo "Index App ID: ${indexAppID}"
 
             //appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName}") != -1 }.toString()
             echo "appXMLRecord: ${appXMLRecord}"
