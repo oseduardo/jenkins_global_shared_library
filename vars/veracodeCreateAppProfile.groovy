@@ -30,7 +30,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
 
             /******** Prueba REGEX *************/
             def tmpText = "{https://analysiscenter.veracode.com/schema/2.0/applist}app[attributes={app_id=488174, app_name=verademo, policy_updated_date=2025-07-08T21:05:39-04:00}; value=[]]"
-            assert tmpText =~ /(verademo)(,|;)?/
+            assert tmpText =~ /(verademopepitoperez)(,|;)?/
             //def matcher = tmpText =~ /(verademo)(,|;)?/
             //echo "Prueba REGEX - matcher: ${matcher}"
             /***********************************/
