@@ -42,7 +42,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             else{
                 echo "Es necesario crear App Profile"
             }
-            echo "appID: ${appXMLRecord}"
+            echo "appID: ${appID}"
         }
 
     } catch(Exception ex) {
