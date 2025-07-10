@@ -43,8 +43,6 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                 if("${appIDResponse}" != ""){
                     int intBeginXML2 = "${appIDResponse}".indexOf("<?xml")
                     int intEndXML2 = "${appIDResponse}".indexOf("</applist>")
-                    echo "intBeginXML2: ${intBeginXML2}"
-                    echo "intEndXML2: ${intEndXML2}"
                     strXML2 = "${appIDResponse}".substring(intBeginXML2, intEndXML2 + 10)
                     echo "strXML2: ${strXML2}"
                     def parseXML2 = new XmlParser().parseText(strXML2)
@@ -54,8 +52,17 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                         appID2 = appXMLRecord2.substring("${appXMLRecord2}".indexOf("app_id=") + 7,"${appXMLRecord2}".indexOf(", app_name=${appProfileName}"))
                         echo "appID2: ${appID2}"
                     }
+                    else{
+                        throw new Exception("[ERROR] There was an error recovering App ID after App Profile creation")
+                    }
+                }
+                else{
+                    throw new Exception("[ERROR] There was an error creating the App Profile")
                 }
             }
+        }
+        else{
+            throw new Exception("[ERROR] There was an error trying to get App ID")
         }
     } catch(Exception ex) {
         println(ex)
