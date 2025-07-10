@@ -29,8 +29,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             echo "appXMLRecord: ${appXMLRecord}"
             if("${appXMLRecord}" != "[]"){
                 appID = appXMLRecord.substring("${appXMLRecord}".indexOf("app_id=") + 7,"${appXMLRecord}".indexOf(", app_name=${appProfileName},"))
+                echo "appID: ${appID}"
             }
-            echo "appID: ${appID}"
             else{
                 echo "[INFO] CREATING APP PROFILE ${appProfileName}"
                 appProfileCreateResponse = "java -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -vid ${VID} -vkey ${VKEY} -action createApp -appname ${appProfileName} -criticality VeryHigh".execute().text
@@ -47,8 +47,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                     echo "appXMLRecord: ${appXMLRecord}"
                     if("${appXMLRecord}" != "[]"){
                         appID = appXMLRecord.substring("${appXMLRecord}".indexOf("app_id=") + 7,"${appXMLRecord}".indexOf(", app_name=${appProfileName},"))
+                        echo "appID: ${appID}"
                     }
-                    echo "appID: ${appID}"
                 }
             }
         }
