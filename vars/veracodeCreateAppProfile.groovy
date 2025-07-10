@@ -84,8 +84,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                             //Updating field "product_name"
                             echo "[INFO] Updating product_name custom field in app profile ${appProfileName}. product_name: ${PRODUCT_NAME}"
                             strCommand = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_name -customfieldvalue '" + "${PRODUCT_NAME}" + "'"
-                            echo "strCommand: ${strCommand}"
-                            productNameUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_name -customfieldvalue ${PRODUCT_NAME}".execute().text
+                            productNameUpdateResponse = strCommand.execute().text
+                            //productNameUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_name -customfieldvalue ${PRODUCT_NAME}".execute().text
                             echo "[INFO] Updating product_id custom field in app profile ${appProfileName}. product_id: ${PRODUCT_ID}"
                             productIDUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_id -customfieldvalue ${PRODUCT_ID}".execute().text
                             echo "[INFO] Custom fields product_name and product_id have been updated succesfully"
