@@ -45,9 +45,9 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                 intIndexAppName = "${appXMLRecord}".indexOf(", app_name=${appProfileName},")
                 echo "Index App Name: ${intIndexAppName}"
             }
-            else{ //There's a ";" after app profile name
-                appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName};") != -1 }.toString()
-                intIndexAppName = "${appXMLRecord}".indexOf(", app_name=${appProfileName};")
+            else{ //There's a "}" after app profile name
+                appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName}\}") != -1 }.toString()
+                intIndexAppName = "${appXMLRecord}".indexOf(", app_name=${appProfileName}\}")
                 echo "Index App Name: ${intIndexAppName}"
             }
             /***********************************/
@@ -74,15 +74,15 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                     echo "strXML2: ${strXML2}"
                     def parseXML2 = new XmlParser().parseText(strXML2)
                     echo "parseXML2: ${parseXML2}"
-
+//esta llegando hasta aqui bien
                     if(parseXML2.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString() != "[]"){ //There's a "," after app profile name
                         appXMLRecord2 = parseXML2.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString()
                         intIndexAppName = "${appXMLRecord2}".indexOf(", app_name=${appProfileName},")
                         echo "Index App Name: ${intIndexAppName}"
                     }
-                    else{ //There's a ";" after app profile name
-                        appXMLRecord2 = parseXML2.'*'.findAll { it.toString().indexOf("app_name=${appProfileName};") != -1 }.toString()
-                        intIndexAppName = "${appXMLRecord2}".indexOf(", app_name=${appProfileName};")
+                    else{ //There's a "}" after app profile name
+                        appXMLRecord2 = parseXML2.'*'.findAll { it.toString().indexOf("app_name=${appProfileName}\}") != -1 }.toString()
+                        intIndexAppName = "${appXMLRecord2}".indexOf(", app_name=${appProfileName}\}")
                         echo "Index App Name: ${intIndexAppName}"
                     }
 
