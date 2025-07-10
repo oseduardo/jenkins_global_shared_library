@@ -51,6 +51,10 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                     if("${appXMLRecord2}" != "[]"){
                         appID2 = appXMLRecord2.substring("${appXMLRecord2}".indexOf("app_id=") + 7,"${appXMLRecord2}".indexOf(", app_name=${appProfileName}"))
                         echo "appID2: ${appID2}"
+
+                        /****************************************************************************************************************/
+                        //AQUI SE DEBE CREAR LOS DOS LLAMADOS A ACTUALIZAR EL APP PROFILE CON LOS CUSTOM FIELDS product_name Y product_id
+                        /****************************************************************************************************************/
                     }
                     else{
                         throw new Exception("[ERROR] There was an error recovering App ID after App Profile creation")
