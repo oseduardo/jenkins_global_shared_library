@@ -38,7 +38,10 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             /***********************************/
 
             /******** Prueba 2 *************/
-            //def tmpText = "[{https://analysiscenter.veracode.com/schema/2.0/applist}app[attributes={app_id=488174, app_name=verademo, policy_updated_date=2025-07-08T21:05:39-04:00}; value=[]]"
+            def tmpText = "{https://analysiscenter.veracode.com/schema/2.0/applist}app[attributes={app_id=2644922, app_name=ppag_verademo_jenkins}; value=[]]"
+            temp = tmpText.indexOf("app_name=ppag_verademo_jenkins/}")
+            echo "temp Index de mierda: ${temp}"
+            sh "exit"
             //if(tmpText.indexOf("app_name=verademo,") != -1){ //There's a "," after app profile name
             if(parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString() != "[]"){ //There's a "," after app profile name
                 appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString()
