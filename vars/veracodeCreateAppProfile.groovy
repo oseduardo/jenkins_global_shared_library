@@ -40,16 +40,17 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
 
             /******** Prueba 2 *************/
             def tmpText = "[{https://analysiscenter.veracode.com/schema/2.0/applist}app[attributes={app_id=488174, app_name=verademo, policy_updated_date=2025-07-08T21:05:39-04:00}; value=[]]"
-            if(tmpText.indexOf("app_name=verademo,") != -1){ //There's a "," after app profile name
-                echo "Se debe trabajar con una coma"
+            //if(tmpText.indexOf("app_name=verademo,") != -1){ //There's a "," after app profile name
+            if(parseXML.'*'.findAll { it.toString().indexOf("app_name=verademo,") != -1 }.toString() != "[]"){ //There's a "," after app profile name
+                appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString()
             }
             else{ //There's a ";" after app profile name
-                echo "Se debe trabajar con un punto y coma"
+                appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName};") != -1 }.toString()
             }
             /***********************************/
 
 
-            appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName}") != -1 }.toString()
+            //appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName}") != -1 }.toString()
             echo "appXMLRecord: ${appXMLRecord}"
             if("${appXMLRecord}" != "[]"){
                 appID = appXMLRecord.substring("${appXMLRecord}".indexOf("app_id=") + 7,"${appXMLRecord}".indexOf(", app_name=${appProfileName}"))
