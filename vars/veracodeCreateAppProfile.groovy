@@ -83,6 +83,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                         try {
                             //Updating field "product_name"
                             echo "[INFO] Updating product_name custom field in app profile ${appProfileName}. product_name: ${PRODUCT_NAME}"
+                            echo "product name size: " + "${PRODUCT_NAME}".size()
                             strCommand = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_name -customfieldvalue '" + "${PRODUCT_NAME}" + "'"
                             productNameUpdateResponse = strCommand.execute().text
                             //productNameUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_name -customfieldvalue ${PRODUCT_NAME}".execute().text
