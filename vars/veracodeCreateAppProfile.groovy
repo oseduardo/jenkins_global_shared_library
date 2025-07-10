@@ -43,14 +43,14 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                     int intEndXML2 = "${appIDResponse}".indexOf("</applist>")
                     echo "intBeginXML2: ${intBeginXML2}"
                     echo "intEndXML2: ${intEndXML2}"
-                    strXML = "${appIDResponse}".substring(intBeginXML2, intEndXML2 + 10)
-                    echo "strXML: ${strXML}"
-                    def parseXML2 = new XmlParser().parseText(strXML)
-                    appXMLRecord = parseXML2.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString()
-                    echo "appXMLRecord: ${appXMLRecord}"
-                    if("${appXMLRecord}" != "[]"){
-                        appID = appXMLRecord.substring("${appXMLRecord}".indexOf("app_id=") + 7,"${appXMLRecord}".indexOf(", app_name=${appProfileName},"))
-                        echo "appID: ${appID}"
+                    strXML2 = "${appIDResponse}".substring(intBeginXML2, intEndXML2 + 10)
+                    echo "strXML2: ${strXML2}"
+                    def parseXML2 = new XmlParser().parseText(strXML2)
+                    appXMLRecord2 = parseXML2.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString()
+                    echo "appXMLRecord2: ${appXMLRecord2}"
+                    if("${appXMLRecord2}" != "[]"){
+                        appID2 = appXMLRecord2.substring("${appXMLRecord2}".indexOf("app_id=") + 7,"${appXMLRecord2}".indexOf(", app_name=${appProfileName},"))
+                        echo "appID2: ${appID2}"
                     }
                 }
             }
