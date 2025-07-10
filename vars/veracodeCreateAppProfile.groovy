@@ -33,7 +33,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             //assert tmpText =~ /(verademo)(,|;)?/
             //def matcher = tmpText =~ /(verademo)(,|;)?/
             //echo "Prueba REGEX - matcher: ${matcher}"
-            myIndex = tmpText.indexOf("app_name=verademo" + /(,|;)?/).toString()
+            myIndex = tmpText.indexOf(/(app_name=verademo)(,|;)?/).toString()
             echo "myIndex: ${myIndex}"
             /***********************************/
 
