@@ -77,7 +77,18 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                         echo "appID2: ${appID2}"
 
                         /****************************************************************************************************************/
-                        //AQUI SE DEBE CREAR LOS DOS LLAMADOS A ACTUALIZAR EL APP PROFILE CON LOS CUSTOM FIELDS product_name Y product_id
+                        //AQUI SE ACTUALIZA EL APP PROFILE CON LOS CUSTOM FIELDS product_name Y product_id
+                        /****************************************************************************************************************/
+                        try {
+                            //Updating field "product_name"
+                            echo "[INFO] Updating product_name custom field in app profile ${appProfileName}"
+                            productNameUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_name -customfieldvalue ${PRODUCT_NAME}".execute().text
+                            echo "[INFO] Updating product_id custom field in app profile ${appProfileName}"
+                            productIDUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_id -customfieldvalue ${PRODUCT_ID}".execute().text
+                            echo "[INFO] Custom fields product_name and product_id have been updated succesfully"
+                        } catch(Exception ex) {
+                            println(ex)
+                        }
                         /****************************************************************************************************************/
                     }
                     else{
