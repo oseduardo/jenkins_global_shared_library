@@ -25,6 +25,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             strXML = "${appIDResponse}".substring(intBeginXML, intEndXML + 10)
             echo "strXML: ${strXML}"
             def parseXML = new XmlParser().parseText(strXML)
+            echo "temp prueba ${parseXML}" //prueb
             appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString()
             echo "appXMLRecord: ${appXMLRecord}"
             if("${appXMLRecord}" != "[]"){
