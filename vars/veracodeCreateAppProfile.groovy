@@ -45,15 +45,14 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             if(parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString() != "[]"){ //There's a "," after app profile name
                 appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString()
                 intIndexAppName = "${appXMLRecord}".indexOf(", app_name=${appProfileName},")
-                echo "Index App Name: ${intIndexAppName}"
             }
             else{ //There's a "}" after app profile name
                 appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName}}") != -1 }.toString()
                 intIndexAppName = "${appXMLRecord}".indexOf(", app_name=${appProfileName}}")
-                echo "Index App Name: ${intIndexAppName}"
             }
             /***********************************/
 
+            echo "Index App Name: ${intIndexAppName}"
 
             //appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName}") != -1 }.toString()
             echo "appXMLRecord: ${appXMLRecord}"
