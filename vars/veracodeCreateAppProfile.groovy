@@ -81,16 +81,12 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                         //AQUI SE ACTUALIZA EL APP PROFILE CON LOS CUSTOM FIELDS product_name Y product_id
                         /****************************************************************************************************************/
                         try {
-
-
-                            //Prueba
-                            println(['ls', '-all'].execute().text)
-
                             //Updating field "product_name"
                             echo "[INFO] Updating product_name custom field in app profile ${appProfileName}. product_name: ${PRODUCT_NAME}"
                             strCommand = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -customfieldname product_name -customfieldvalue '${PRODUCT_NAME}' -appid ${appID2}"
                             echo "strCommand: ${strCommand}"
-                            productNameUpdateResponse = strCommand.execute().text
+                            println(["java", "-verbose", "-jar", "${strJavaWrapperLocation}/VeracodeJavaAPI.jar", "-action", "updateapp", "-customfieldname", "product_name", "-customfieldvalue", "'${PRODUCT_NAME}'", "-appid", "${appID2}"].execute().text)
+                            //productNameUpdateResponse = strCommand.execute().text
                             //productNameUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_name -customfieldvalue ${PRODUCT_NAME}".execute().text
                             echo "[INFO] Updating product_id custom field in app profile ${appProfileName}. product_id: ${PRODUCT_ID}"
                             productIDUpdateResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -action updateapp -appid ${appID2} -customfieldname product_id -customfieldvalue ${PRODUCT_ID}".execute().text
