@@ -30,8 +30,14 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             //appID = parseXML.'*'.get(3).name()
             //appID = parseXML.'*'[0].name()
             //appID = parseXML.'*'[97].toString().indexOf("app_name=verademo")
-            appID = parseXML.'*'.findAll { it.toString().indexOf("app_name=verademo,") != -1 }
-            echo "appID: ${appID}"
+            appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=verademo,") != -1 }.toString()
+            if("${appXMLRecord}" != ""){
+                appID = appXMLRecord.substring("${appXMLRecord}".indexOf("app_id=" + 7),"${appXMLRecord}".indexOf("app_name=verademo,"))
+            }
+            else{
+                echo "Es necesario crear App Profile"
+            }
+            echo "appID: ${appXMLRecord}"
         }
 
     } catch(Exception ex) {
