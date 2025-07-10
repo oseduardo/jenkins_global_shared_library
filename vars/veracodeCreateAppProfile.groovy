@@ -36,10 +36,13 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                 appProfileCreateResponse = "java -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -vid ${VID} -vkey ${VKEY} -action createApp -appname ${appProfileName} -criticality VeryHigh".execute().text
                 echo "[INFO] APP PROFILE ${appProfileName} HAS BEEN CREATED"
 
+                appIDResponse = ""
                 appIDResponse = "java -verbose -jar ${strJavaWrapperLocation}/VeracodeJavaAPI.jar -vid ${VID} -vkey ${VKEY} -action GetAppList".execute().text
                 if("${appIDResponse}" != ""){
                     int intBeginXML2 = "${appIDResponse}".indexOf("<?xml")
                     int intEndXML2 = "${appIDResponse}".indexOf("</applist>")
+                    echo "intBeginXML2: ${intBeginXML2}"
+                    echo "intEndXML2: ${intEndXML2}"
                     strXML = "${appIDResponse}".substring(intBeginXML2, intEndXML2 + 10)
                     echo "strXML: ${strXML}"
                     def parseXML2 = new XmlParser().parseText(strXML)
