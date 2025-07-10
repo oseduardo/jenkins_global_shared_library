@@ -2,6 +2,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     //This procedure is created to customize the app profile creation process for Transbank's POV considering they have to populate a couple of custom
     //fields (product_name, product_id); in this case it's neccesary to use wrappers to create app profile incluidng custom fields
     def appProfileName = new String("${PRODUCT_ID}_${REPO_NAME}")
+    //def appProfileName = "verademo"
     def strJavaWrapperLocation = new String (".")
     def appID = new String ("")
     echo "[INFO] Veracode - Creating a New App Profile"
@@ -29,7 +30,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
 
             /******** Prueba REGEX *************/
             def tmpText = "{https://analysiscenter.veracode.com/schema/2.0/applist}app[attributes={app_id=488174, app_name=verademo, policy_updated_date=2025-07-08T21:05:39-04:00}; value=[]]"
-            def myRegEx = "${appProfileName}[,;]$"
+            def myRegEx = "verademo[,;]$"
             def matcher = tmpText =~ myRegEx
             echo "Prueba REGEX - matcher: ${matcher}"
             /***********************************/
