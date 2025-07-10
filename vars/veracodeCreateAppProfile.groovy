@@ -32,7 +32,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             //appID = parseXML.'*'[0]
             //appID = parseXML.'*'[0].value()
             //appID = parseXML.'**'.findAll { it.name().localPart == "verademo" }.name()
-            appID = parseXML.'**'.name().localPart
+            appID = parseXML.'**'.name().getLocalPart()
             echo "appID: ${appID}"
         }
 
