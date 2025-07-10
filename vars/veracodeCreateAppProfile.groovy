@@ -60,7 +60,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             echo "appXMLRecord: ${appXMLRecord}"
             if("${appXMLRecord}" != "[]"){
                 //appID = appXMLRecord.substring("${appXMLRecord}".indexOf("app_id=") + 7,"${appXMLRecord}".indexOf(", app_name=${appProfileName}"))
-                appID = appXMLRecord.substring("${appXMLRecord}".indexOf("app_id=") + 7,"${appXMLRecord}".indexOf(intIndexAppName))
+                appID = appXMLRecord.substring("${appXMLRecord}".indexOf("app_id=") + 7,intIndexAppName)
                 echo "appID: ${appID}"
             }
             else{
@@ -77,7 +77,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                     echo "strXML2: ${strXML2}"
                     def parseXML2 = new XmlParser().parseText(strXML2)
                     echo "parseXML2: ${parseXML2}"
-//esta llegando hasta aqui bien
+
                     if(parseXML2.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString() != "[]"){ //There's a "," after app profile name
                         appXMLRecord2 = parseXML2.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString()
                         intIndexAppName = "${appXMLRecord2}".indexOf(", app_name=${appProfileName},")
@@ -93,7 +93,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                     echo "appXMLRecord2: ${appXMLRecord2}"
                     if("${appXMLRecord2}" != "[]"){
                         //appID2 = appXMLRecord2.substring("${appXMLRecord2}".indexOf("app_id=") + 7,"${appXMLRecord2}".indexOf(", app_name=${appProfileName}"))
-                        appID2 = appXMLRecord2.substring("${appXMLRecord2}".indexOf("app_id=") + 7,"${appXMLRecord2}".indexOf(intIndexAppName))
+                        appID2 = appXMLRecord2.substring("${appXMLRecord2}".indexOf("app_id=") + 7,intIndexAppName)
                         echo "appID2: ${appID2}"
 
                         /****************************************************************************************************************/
