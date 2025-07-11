@@ -3,5 +3,5 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
     def wkspName = new String("${PRODUCT_ID}_${REPO_NAME}")
 
     //Setting up HMAC for secure authentication with SCA Agent REST APIs
-    holamundo("Espero todo salga bien!")
+    veracodeGlobalSharedLibrary.holamundo("Espero todo salga bien!")
 }
