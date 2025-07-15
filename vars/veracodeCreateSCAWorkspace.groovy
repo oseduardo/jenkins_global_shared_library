@@ -1,4 +1,3 @@
-import groovy.json
 def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
     //This procedure is created to customize the SCA (ABS) Workspace creation process for prospect's POV
     //Authentication is made by usinh HMAC Auth, which is covered with agent running the stage that is invoking this method
