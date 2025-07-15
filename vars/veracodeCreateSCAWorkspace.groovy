@@ -6,6 +6,6 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
 
     //Validate if a Workspace with the name wkspName exists
     //sh 'http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces accept-encoding:gzip user-agent:veracode'
-    strWorkspaces = "http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces".execute().text
+    strWorkspaces = "http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces".execute()
     echo "${strWorkspaces}"
 }
