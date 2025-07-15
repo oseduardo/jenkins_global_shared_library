@@ -12,7 +12,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
         //jsonWorkspaces = jsonSlurper.parse(new File('workspaces.json'))
         //echo "${jsonWorkspaces}"
         def test = readJSON file: 'workspaces.json'
-        echo "${test}".size()
+        def test2 = test[0]
+        echo "${test2}"
     } catch(Exception ex) {
         println(ex)
     }
