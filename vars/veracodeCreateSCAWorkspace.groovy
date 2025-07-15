@@ -4,7 +4,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
     //Authentication is made by usinh HMAC Auth, which is covered with agent running the stage that is invoking this method
 
     def wkspName = new String("${PRODUCT_ID}_${REPO_NAME}")
-    def jsonSlurper = new JsonSlurper()
+    //def jsonSlurper = new JsonSlurper()
 
     //Validate if a Workspace with the name wkspName exists
     try {
