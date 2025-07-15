@@ -14,7 +14,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
         //echo "${jsonWorkspaces}"
         def test = readJSON file: 'workspaces.json'
         mySize = test._embedded.workspaces.size()
-        echo "${mySize}
+        echo "${mySize}"
     } catch(Exception ex) {
         println(ex)
     }
