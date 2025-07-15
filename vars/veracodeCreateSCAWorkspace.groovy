@@ -20,7 +20,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                 println(jsonWorkspaces._embedded.workspaces[intIndex].id)
                 println(jsonWorkspaces._embedded.workspaces[intIndex].name)
                 echo "\n"
-                intIndex = intIndex++
+                intIndex = intIndex + 1
             }
         }
         else{
