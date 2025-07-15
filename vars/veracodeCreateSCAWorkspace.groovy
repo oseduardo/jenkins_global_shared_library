@@ -9,11 +9,11 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
     try {
         //Get workspaces list
         sh 'http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces > workspaces.json'
-        sh 'cat workspaces.json'
+        //sh 'cat workspaces.json'
         //jsonWorkspaces = jsonSlurper.parse(new File('workspaces.json'))
         //echo "${jsonWorkspaces}"
         def test = readJSON file: 'workspaces.json'
-        echo "${test}"
+        echo "${test}"._embedded.workspaces.size()
     } catch(Exception ex) {
         println(ex)
     }
