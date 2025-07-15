@@ -12,8 +12,24 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
         //sh 'cat workspaces.json'
         //jsonWorkspaces = jsonSlurper.parse(new File('workspaces.json'))
         //echo "${jsonWorkspaces}"
-        def test = readJSON file: 'workspaces.json'
-        mySize = test._embedded.workspaces.size()
+        def jsonWorkspaces = readJSON file: 'workspaces.json'
+        def intWorkspaces = jsonWorkspaces._embedded.workspaces.size()
+        if(intWorkspaces != 0) {
+            def intIndex = 0
+            while(intIndex < intWorkspaces){
+                println(jsonWorkspaces._embedded.workspaces[intIndex].id.text)
+                println(jsonWorkspaces._embedded.workspaces[intIndex].name.text)
+                echo "\n"
+                intIndex = intIndex++
+            }
+        }
+        else{
+            //A new workspace is created
+            echo "There are no workspaces"
+            echo "[INFO] CREATING WORKSPACE ${wkspName}..."            
+        }
+
+
         echo "${mySize}"
     } catch(Exception ex) {
         println(ex)
