@@ -33,7 +33,12 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                 //We are working with a naming convention for agents in this prospect: <wkspName>_CLI_Agent
                 sh "http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents > agents.json"
                 def jsonAgents = readJSON file: 'agents.json'
-                def intAgents = jsonAgents._embedded.agents.size()
+                def intAgents = 0
+                try{
+                    intAgents = jsonAgents._embedded.agents.size()
+                } catch(NullPointerException nullEx) { //There are no agents for this workspace
+                    intAgents = 0
+                }
                 if(intAgents != 0) {
                     def intAgentsIndex = 0
                     def agentID = ""
@@ -53,13 +58,13 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                         def jsonMyAgent = readJSON file: 'myAgent.json'
                         println("[INFO] CLI Agent ${wkspName}_CLI_Agent has been created successfully!")
                         println("[INFO] Setting up SRCCLR_API_TOKEN env variable...")
-                        myToken = jsonMyAgent.token.access_token
+                        def myToken = jsonMyAgent.token.access_token
                         sh "export SRCCLR_API_TOKEN=${myToken}"
                         println("[INFO] SRCCLR_API_TOKEN env variable has been set up successfully!")
                         sh 'echo $SRCCLR_API_TOKEN'
                     }
                 }
-                else {
+                else {  //To create a new Agent with name <wkspName>_CLI_Agent. It sets up SRCCLR_API_TOKEN env variable
                     println("Aqui hay que crear un nuevo Agent")
                     /*********************************************/
                     //To create a new Agent with name <wkspName>_CLI_Agent
