@@ -30,7 +30,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                 println("[INFO] Workspace name: ${wkspName}")
 
                 //Get CLI agent created for that specific workspace, by using workspace ID (wkspID)
-                //We are working with a naming convention for agents in this prospect: <wkspName>_CLI_Agent
+                //Considering that agent name should have between 3 and 20 letters, let's work with a unique agent per workspace, called "Auto_CLI_Agent"
                 sh "http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents > agents.json"
                 def jsonAgents = readJSON file: 'agents.json'
                 def intAgents = 0
@@ -43,20 +43,19 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                     def intAgentsIndex = 0
                     def agentID = ""
                     while(intAgentsIndex < intAgents && agentID == ""){
-                        if(jsonAgents._embedded.agents[intAgentsIndex].name == wkspName+"_CLI_Agent") {agentID = jsonAgents._embedded.agents[intAgentsIndex].id}
+                        if(jsonAgents._embedded.agents[intAgentsIndex].name == "Auto_CLI_Agent") {agentID = jsonAgents._embedded.agents[intAgentsIndex].id}
                         intAgentsIndex = intAgentsIndex + 1
                     }
 
                     if(agentID != "") { //A CLI agent with <wkspName>_CLI_Agent name exists!
-                        println("[INFO] Agent exists.")
-                        println("[INFO] Agent ID: ${agentID}")
-                        println("[INFO] Agent name: ${wkspName}_CLI_Agent")
+                        println("[INFO] Auto_CLI_Agent exists for this workspace.")
+                        println("[INFO] Auto_CLI_Agent ID: ${agentID}")
                     }
                     else { //To create a new Agent with name <wkspName>_CLI_Agent. It sets up SRCCLR_API_TOKEN env variable
                         println("[INFO] Creating a new CLI Agent for ${wkspName} workspace...")
-                        sh "http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents agent_type==CLI name==${wkspName}_CLI_Agent > myAgent.json"
+                        sh "http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents agent_type=CLI name=Auto_CLI_Agent > myAgent.json"
                         def jsonMyAgent = readJSON file: 'myAgent.json'
-                        println("[INFO] CLI Agent ${wkspName}_CLI_Agent has been created successfully!")
+                        println("[INFO] CLI Agent Auto_CLI_Agent has been created successfully for this workspace!")
                         println("[INFO] Setting up SRCCLR_API_TOKEN env variable...")
                         def myToken = jsonMyAgent.token.access_token
                         sh "export SRCCLR_API_TOKEN=${myToken}"
@@ -66,9 +65,9 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                 }
                 else {  //To create a new Agent with name <wkspName>_CLI_Agent. It sets up SRCCLR_API_TOKEN env variable
                     println("[INFO] Creating a new CLI Agent for ${wkspName} workspace...")
-                    sh "http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents agent_type==CLI name==${wkspName}_CLI_Agent > myAgent.json"
+                    sh "http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents agent_type=CLI name=Auto_CLI_Agent > myAgent.json"
                     def jsonMyAgent = readJSON file: 'myAgent.json'
-                    println("[INFO] CLI Agent ${wkspName}_CLI_Agent has been created successfully!")
+                        println("[INFO] CLI Agent Auto_CLI_Agent has been created successfully for this workspace!")
                     println("[INFO] Setting up SRCCLR_API_TOKEN env variable...")
                     def myToken = jsonMyAgent.token.access_token
                     sh "export SRCCLR_API_TOKEN=${myToken}"
