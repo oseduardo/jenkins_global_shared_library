@@ -41,18 +41,18 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                         if(jsonAgents._embedded.agents[intAgentsIndex].name == wkspName+"_CLI_Agent") {agentID = jsonAgents._embedded.agents[intAgentsIndex].id}
                         intAgentsIndex = intAgentsIndex + 1
                     }
+
+                    if(agentID != "") { //A CLI agent with <wkspName>_CLI_Agent name exists!
+                        println("Agent exists.")
+                        println("Agent ID: ${agentID}")
+                        println("Agent name: ${wkspName}_CLI_Agent")
+                    }
                 }
                 else {
                     println("Aqui hay que crear un nuevo Agent")
                     /*********************************************/
                     //To create a new Agent with name <wkspName>_CLI_Agent
                     /*********************************************/
-                }
-
-                if(agentID != "") { //A CLI agent with <wkspName>_CLI_Agent name exists!
-                    println("Agent exists.")
-                    println("Agent ID: ${agentID}")
-                    println("Agent name: ${wkspName}_CLI_Agent")
                 }
             }
             else {
