@@ -6,7 +6,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
     /******************************************************/
     //ESTAS LINEAS DEBEN CAMBIAR PARA QUE QUEDEN FUNCIONANDO CON LOS PARAMETROS RESPECTIVOS
     //def wkspName = new String("${PRODUCT_ID}_${REPO_NAME}")
-    def wkspName = new String("twenty-CRM")
+    def wkspName = new String("verademo_jenkins")
     /******************************************************/
 
 
@@ -25,9 +25,9 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
             }
 
             if(wkspID != "") { //A workspace with wkspName name exists!
-                println("Workspace exists.") 
-                println("Workspace ID: ${wkspID}")
-                println("Workspace name: ${wkspName}")
+                println("[INFO] Workspace exists.") 
+                println("[INFO] Workspace ID: ${wkspID}")
+                println("[INFO] Workspace name: ${wkspName}")
 
                 //Get CLI agent created for that specific workspace, by using workspace ID (wkspID)
                 //We are working with a naming convention for agents in this prospect: <wkspName>_CLI_Agent
@@ -43,15 +43,20 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                     }
 
                     if(agentID != "") { //A CLI agent with <wkspName>_CLI_Agent name exists!
-                        println("Agent exists.")
-                        println("Agent ID: ${agentID}")
-                        println("Agent name: ${wkspName}_CLI_Agent")
+                        println("[INFO] Agent exists.")
+                        println("[INFO] Agent ID: ${agentID}")
+                        println("[INFO] Agent name: ${wkspName}_CLI_Agent")
                     }
-                    else {
-                        println("Aqui hay que crear un nuevo Agent")
-                        /*********************************************/
-                        //To create a new Agent with name <wkspName>_CLI_Agent
-                        /*********************************************/
+                    else { //To create a new Agent with name <wkspName>_CLI_Agent. It sets up SRCCLR_API_TOKEN env variable
+                        println("[INFO] Creating a new CLI Agent for ${wkspName} workspace...")
+                        sh "http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents agent_type=CLI name=${wkspName}_CLI_Agent > myAgent.json"
+                        def jsonMyAgent = readJSON file: 'myAgent.json'
+                        println("[INFO] CLI Agent ${wkspName}_CLI_Agent has been created successfully!")
+                        println("[INFO] Setting up SRCCLR_API_TOKEN env variable...")
+                        myToken = jsonMyAgent.token.access_token
+                        sh "export SRCCLR_API_TOKEN=${myToken}"
+                        println("[INFO] SRCCLR_API_TOKEN env variable has been set up successfully!")
+                        sh 'echo $SRCCLR_API_TOKEN'
                     }
                 }
                 else {
