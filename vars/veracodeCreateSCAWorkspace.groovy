@@ -65,8 +65,9 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                 }
                 else {  //To create a new Agent with name Auto_CLI_Agent. It sets up SRCCLR_API_TOKEN env variable
                     println("[INFO] Creating a new CLI Agent for ${wkspName} workspace...")
-                    sh "http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents agent_type=CLI name=Auto_CLI_Agent"
-                    def jsonMyAgent = readJSON file: 'myAgent.json'
+                    //sh "http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents agent_type=CLI name=Auto_CLI_Agent"
+                    println(["http", "--auth-type", "veracode_hmac", "POST", "https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents", "agent_type=CLI", "name=Auto_CLI_Agent"].execute().text)
+                    //def jsonMyAgent = readJSON file: 'myAgent.json'
                     println("[INFO] CLI Agent Auto_CLI_Agent has been created successfully for this workspace!")
                     println("[INFO] Setting up SRCCLR_API_TOKEN env variable...")
                     def myToken = jsonMyAgent.token.access_token
