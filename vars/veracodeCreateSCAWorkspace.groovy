@@ -25,7 +25,9 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
             }
 
             if(wkspID != "") { //A workspace with wkspName name exists!
-                println("Workspace exists. Workspace ID: ${wkspID}")
+                println("Workspace exists.") 
+                println("Workspace ID: ${wkspID}")
+                println("Workspace name: ${wkspName}")
 
                 //Get CLI agent created for that specific workspace, by using workspace ID (wkspID)
                 //We are working with a naming convention for agents in this prospect: <wkspName>_CLI_Agent
@@ -33,8 +35,18 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                 def jsonAgents = readJSON file: 'agents.json'
                 def intAgents = jsonAgents._embedded.agents.size()
                 if(intAgents != 0) {
-                    println("There are agents - COMO VAMOS VAMOS BIEN")
-                    println("Agents number: ${intAgents}")
+                    def intAgentsIndex = 0
+                    def agentID = ""
+                    while(intAgentsIndex < intAgents && agentID == ""){
+                        if(jsonAgents._embedded.agents[intAgentsIndex].name == wkspName+"_CLI_Agent") {agentID = jsonAgents._embedded.agents[intIndex].id}
+                        intAgentsIndex = intAgentsIndex + 1
+                    }
+                }
+
+                if(agentID != "") { //A CLI agent with <wkspName>_CLI_Agent name exists!
+                    println("Agent exists.")
+                    println("Agent ID: ${agentID}")
+                    println("Agent name: ${wkspName}_CLI_Agent")
                 }
             }
             else {
