@@ -54,7 +54,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                     }
                     else { //To create a new Agent with name <wkspName>_CLI_Agent. It sets up SRCCLR_API_TOKEN env variable
                         println("[INFO] Creating a new CLI Agent for ${wkspName} workspace...")
-                        sh "http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents?agent_type=CLI&name=${wkspName}_CLI_Agent > myAgent.json"
+                        sh "http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents?agent_type=CLI\&name=${wkspName}_CLI_Agent > myAgent.json"
                         def jsonMyAgent = readJSON file: 'myAgent.json'
                         println("[INFO] CLI Agent ${wkspName}_CLI_Agent has been created successfully!")
                         println("[INFO] Setting up SRCCLR_API_TOKEN env variable...")
@@ -66,7 +66,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                 }
                 else {  //To create a new Agent with name <wkspName>_CLI_Agent. It sets up SRCCLR_API_TOKEN env variable
                     println("[INFO] Creating a new CLI Agent for ${wkspName} workspace...")
-                    sh "http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents?agent_type=CLI&name=${wkspName}_CLI_Agent > myAgent.json"
+                    sh "http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents?agent_type=CLI\&name=${wkspName}_CLI_Agent > myAgent.json"
                     def jsonMyAgent = readJSON file: 'myAgent.json'
                     println("[INFO] CLI Agent ${wkspName}_CLI_Agent has been created successfully!")
                     println("[INFO] Setting up SRCCLR_API_TOKEN env variable...")
