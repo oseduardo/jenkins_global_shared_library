@@ -47,6 +47,12 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                         println("Agent ID: ${agentID}")
                         println("Agent name: ${wkspName}_CLI_Agent")
                     }
+                    else {
+                        println("Aqui hay que crear un nuevo Agent")
+                        /*********************************************/
+                        //To create a new Agent with name <wkspName>_CLI_Agent
+                        /*********************************************/
+                    }
                 }
                 else {
                     println("Aqui hay que crear un nuevo Agent")
