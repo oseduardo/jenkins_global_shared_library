@@ -38,9 +38,15 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                     def intAgentsIndex = 0
                     def agentID = ""
                     while(intAgentsIndex < intAgents && agentID == ""){
-                        if(jsonAgents._embedded.agents[intAgentsIndex].name == wkspName+"_CLI_Agent") {agentID = jsonAgents._embedded.agents[intIndex].id}
+                        if(jsonAgents._embedded.agents[intAgentsIndex].name == wkspName+"_CLI_Agent") {agentID = jsonAgents._embedded.agents[intAgentsIndex].id}
                         intAgentsIndex = intAgentsIndex + 1
                     }
+                }
+                else {
+                    println("Aqui hay que crear un nuevo Agent")
+                    /*********************************************/
+                    //To create a new Agent with name <wkspName>_CLI_Agent
+                    /*********************************************/
                 }
 
                 if(agentID != "") { //A CLI agent with <wkspName>_CLI_Agent name exists!
