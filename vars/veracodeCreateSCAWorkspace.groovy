@@ -55,6 +55,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                         println("[INFO] Getting token information of this Auto_CLI_Agent...")
                         sh "http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents/${agentID} > tokenInfo.json"
                         def jsonTokenInfo = readJSON file: 'tokenInfo.json'
+                        sh "cat tokenInfo.json"
                         def intTokens = 0
                         try{
                             def tokenID = jsonTokenInfo._embedded.tokens[0].id
