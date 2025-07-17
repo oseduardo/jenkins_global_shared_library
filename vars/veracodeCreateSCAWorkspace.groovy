@@ -50,6 +50,28 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                     if(agentID != "") { //A CLI agent with Auto_CLI_Agent name exists!
                         println("[INFO] Auto_CLI_Agent exists for this workspace.")
                         println("[INFO] Auto_CLI_Agent ID: ${agentID}")
+
+                        //Get the token basic information of the agent
+                        println("[INFO] Getting token information of this Auto_CLI_Agent...")
+                        sh "http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents/${agentID} > tokenInfo.json"
+                        def jsonTokenInfo = readJSON file: 'tokenInfo.json'
+                        def intTokens = 0
+                        try{
+                            def tokenID = jsonTokenInfo._embedded.tokens[0].id
+                            echo "este es el token ID: ${tokenID}"
+
+                            //Get the token to be used in scan
+
+                        } catch(NullPointerException nullEx) { //There are no tokens for this agent
+                            intAgents = 0
+                            /***************************/
+                            //AQUI SE DEBE CREAR UN TOKEN
+                            /***************************/
+                        }
+
+                        /******************************************************/
+                        //AQUI SE DEBE OBTENER EL TOKEN DEL AGENTE
+                        /******************************************************/
                     }
                     else { //To create a new Agent with name Auto_CLI_Agent. It sets up SRCCLR_API_TOKEN env variable
                         println("[INFO] Creating a new CLI Agent for ${wkspName} workspace...")
@@ -83,9 +105,10 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
             }
         }
         else{
-            //A new workspace is created
-            echo "There are no workspaces"
-            echo "[INFO] CREATING WORKSPACE ${wkspName}..."            
+            println("Aqui hay que crear un nuevo workspace!")
+            /*********************************************/
+            //To create a new workspace with name wkspName
+            /*********************************************/
         }
 
     } catch(Exception ex) {
