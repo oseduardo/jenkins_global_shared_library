@@ -4,14 +4,14 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
 
     //This procedure assumes an Organizational CLI Agent has been created previously in SCA (ABS), with its Access Token registered in the tool
     //that will be invoking it, in this case, Jenkins.
-    //The procedure will get the workspace's site_id, and it will be set up in the env variable SRCCLR_WORKSPACE_SLUG, which will be used
-    //when the SCA scan takes place
+    //The procedure will get the workspace's site_id, and it will return this value as a String, to be used when the SCA scan takes place
 
     /******************************************************/
     //ESTAS LINEAS DEBEN CAMBIAR PARA QUE QUEDEN FUNCIONANDO CON LOS PARAMETROS RESPECTIVOS
     //def wkspName = new String("${PRODUCT_ID}_${REPO_NAME}")
     def wkspName = new String("verademo_jenkins")
     /******************************************************/
+    def siteID = ""
 
 
     //Validate if a Workspace with the name wkspName exists
@@ -23,7 +23,6 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
         if(intWorkspaces != 0) {
             def intIndex = 0
             def wkspID = ""
-            def siteID = ""
             //Get site_id for that specific workspace, by using workspace ID (wkspID)
             while(intIndex < intWorkspaces && siteID == ""){
                 if(jsonWorkspaces._embedded.workspaces[intIndex].name == wkspName) {siteID = jsonWorkspaces._embedded.workspaces[intIndex].site_id}
@@ -36,7 +35,6 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                 println("[INFO] Workspace's Site ID: ${siteID}")
                 sh "export SRCCLR_WORKSPACE_SLUG=${siteID}"
                 println("[INFO] Env variable SRCCLR_WORKSPACE_SLUG has been set up!")
-                return siteID.text
             }
             else {
                 println("Aqui hay que crear un nuevo workspace!")
@@ -55,4 +53,6 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
     } catch(Exception ex) {
         println(ex)
     }
+
+    return siteID
 }
