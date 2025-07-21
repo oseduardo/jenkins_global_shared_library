@@ -36,7 +36,7 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                 println("[INFO] Workspace's Site ID: ${siteID}")
                 sh "export SRCCLR_WORKSPACE_SLUG=${siteID}"
                 println("[INFO] Env variable SRCCLR_WORKSPACE_SLUG has been set up!")
-                sh 'echo %SRCCLR_WORKSPACE_SLUG'
+                sh 'echo $SRCCLR_WORKSPACE_SLUG'
                 return
             }
             else {
