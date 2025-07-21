@@ -1,7 +1,11 @@
 def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
     //This procedure is created to customize the SCA (ABS) Workspace creation process for prospect's POV
-    //Authentication is made by usinh HMAC Auth, which is covered with agent running the stage that is invoking this method
+    //Authentication is made by usinh HMAC Auth, which is covered with agent is running the stage that is invoking this method
 
+    //This procedure assumes an Organizational CLI Agent has been created previously in SCA (ABS), with its Access Token registered in the tool
+    //that will be invoking it, in this case, Jenkins.
+    //The procedure will get the workspace's site_id, and it will be set up in the env variable SRCCLR_WORKSPACE_SLUG, which will be used
+    //when the SCA scan takes place
 
     /******************************************************/
     //ESTAS LINEAS DEBEN CAMBIAR PARA QUE QUEDEN FUNCIONANDO CON LOS PARAMETROS RESPECTIVOS
@@ -19,84 +23,21 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
         if(intWorkspaces != 0) {
             def intIndex = 0
             def wkspID = ""
-            while(intIndex < intWorkspaces && wkspID == ""){
-                if(jsonWorkspaces._embedded.workspaces[intIndex].name == wkspName) {wkspID = jsonWorkspaces._embedded.workspaces[intIndex].id}
+            def siteID = ""
+            //Get site_id for that specific workspace, by using workspace ID (wkspID)
+            while(intIndex < intWorkspaces && siteID == ""){
+                if(jsonWorkspaces._embedded.workspaces[intIndex].name == wkspName) {siteID = jsonWorkspaces._embedded.workspaces[intIndex].site_id}
                 intIndex = intIndex + 1
             }
 
-            if(wkspID != "") { //A workspace with wkspName name exists!
+            if(siteID != "") { //A workspace with wkspName name exists! It will set up SRCCLR_WORKSPACE_SLUG env variable with site_id value
                 println("[INFO] Workspace exists.") 
-                println("[INFO] Workspace ID: ${wkspID}")
                 println("[INFO] Workspace name: ${wkspName}")
-
-                //Get CLI agent created for that specific workspace, by using workspace ID (wkspID)
-                //Considering that agent name should have between 3 and 20 letters, let's work with a unique agent per workspace, called "Auto_CLI_Agent"
-                sh "http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents > agents.json"
-                def jsonAgents = readJSON file: 'agents.json'
-                def intAgents = 0
-                try{
-                    intAgents = jsonAgents._embedded.agents.size()
-                } catch(NullPointerException nullEx) { //There are no agents for this workspace
-                    intAgents = 0
-                }
-                if(intAgents != 0) {
-                    def intAgentsIndex = 0
-                    def agentID = ""
-                    while(intAgentsIndex < intAgents && agentID == ""){
-                        if(jsonAgents._embedded.agents[intAgentsIndex].name == "Auto_CLI_Agent") {agentID = jsonAgents._embedded.agents[intAgentsIndex].id}
-                        intAgentsIndex = intAgentsIndex + 1
-                    }
-
-                    if(agentID != "") { //A CLI agent with Auto_CLI_Agent name exists!
-                        println("[INFO] Auto_CLI_Agent exists for this workspace.")
-                        println("[INFO] Auto_CLI_Agent ID: ${agentID}")
-
-                        //Get the token basic information of the agent
-                        println("[INFO] Getting token information of this Auto_CLI_Agent...")
-                        sh "http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents/${agentID} > tokenInfo.json"
-                        def jsonTokenInfo = readJSON file: 'tokenInfo.json'
-                        sh "cat tokenInfo.json"
-                        def intTokens = 0
-                        try{
-                            def tokenID = jsonTokenInfo._embedded.tokens[0].id
-                            echo "este es el token ID: ${tokenID}"
-
-                            //Get the token to be used in scan
-
-                        } catch(NullPointerException nullEx) { //There are no tokens for this agent
-                            intAgents = 0
-                            /***************************/
-                            //AQUI SE DEBE CREAR UN TOKEN
-                            /***************************/
-                        }
-
-                        /******************************************************/
-                        //AQUI SE DEBE OBTENER EL TOKEN DEL AGENTE
-                        /******************************************************/
-                    }
-                    else { //To create a new Agent with name Auto_CLI_Agent. It sets up SRCCLR_API_TOKEN env variable
-                        println("[INFO] Creating a new CLI Agent for ${wkspName} workspace...")
-                        sh "echo -n '{\"agent_type\": \"CLI\", \"name\": \"Auto_CLI_Agent\"}' | http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents > myAgent.json"
-                        def jsonMyAgent = readJSON file: 'myAgent.json'
-                        println("[INFO] CLI Agent Auto_CLI_Agent has been created successfully for this workspace!")
-                        println("[INFO] Setting up SRCCLR_API_TOKEN env variable...")
-                        def myToken = jsonMyAgent.token.access_token
-                        sh "export SRCCLR_API_TOKEN=${myToken}"
-                        println("[INFO] SRCCLR_API_TOKEN env variable has been set up successfully!")
-                        sh 'echo $SRCCLR_API_TOKEN'
-                    }
-                }
-                else {  //To create a new Agent with name Auto_CLI_Agent. It sets up SRCCLR_API_TOKEN env variable
-                    println("[INFO] Creating a new CLI Agent for ${wkspName} workspace...")
-                    sh "echo -n '{\"agent_type\": \"CLI\", \"name\": \"Auto_CLI_Agent\"}' | http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces/${wkspID}/agents > myAgent.json"
-                    def jsonMyAgent = readJSON file: 'myAgent.json'
-                    println("[INFO] CLI Agent Auto_CLI_Agent has been created successfully for this workspace!")
-                    println("[INFO] Setting up SRCCLR_API_TOKEN env variable...")
-                    def myToken = jsonMyAgent.token.access_token
-                    sh "export SRCCLR_API_TOKEN=${myToken}"
-                    println("[INFO] SRCCLR_API_TOKEN env variable has been set up successfully!")
-                    sh 'echo $SRCCLR_API_TOKEN'
-                }
+                println("[INFO] Workspace's Site ID: ${siteID}")
+                sh "export SRCCLR_WORKSPACE_SLUG=${siteID}"
+                println("[INFO] Env variable SRCCLR_WORKSPACE_SLUG has been set up!")
+                sh 'echo %SRCCLR_WORKSPACE_SLUG'
+                return
             }
             else {
                 println("Aqui hay que crear un nuevo workspace!")
