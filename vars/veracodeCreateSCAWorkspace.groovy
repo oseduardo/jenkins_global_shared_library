@@ -16,7 +16,10 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
             println("[INFO] Creating ${wkspName} workspace...")
             sh "echo -n '{\"name\": \"${wkspName}\"}' | http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces"
             strPrueba = holaMundo()
-            echo "${strPrueba}"
+            println("[INFO] Workspace ${wkspName} has been created successfully!")
+            
+            //Get the site_id of the new workspace created
+            siteID = getSiteID(wkspName)
         }
     } catch(Exception ex) {
         println(ex)
@@ -37,7 +40,7 @@ def String getSiteID(String strWkspName){
 
         //Get site_id for that specific workspace, by using workspace name (wkspName)
         while(intIndex < intWorkspaces && siteID == ""){
-            if(jsonWorkspaces._embedded.workspaces[intIndex].name == wkspName) {siteID = jsonWorkspaces._embedded.workspaces[intIndex].site_id}
+            if(jsonWorkspaces._embedded.workspaces[intIndex].name == strWkspName) {siteID = jsonWorkspaces._embedded.workspaces[intIndex].site_id}
             intIndex = intIndex + 1
         }
     }
