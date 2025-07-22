@@ -24,9 +24,9 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
             int intBeginXML = "${appIDResponse}".indexOf("<?xml")
             int intEndXML = "${appIDResponse}".indexOf("</applist>")
             strXML = "${appIDResponse}".substring(intBeginXML, intEndXML + 10)
-            echo "strXML: ${strXML}"
+            //echo "strXML: ${strXML}"
             def parseXML = new XmlParser().parseText(strXML)
-            echo "parseXML: ${parseXML}"
+            //echo "parseXML: ${parseXML}"
 
             if(parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString() != "[]"){ //There's a "," after app profile name
                 appXMLRecord = parseXML.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString()
@@ -57,9 +57,9 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID, String VID, S
                     int intBeginXML2 = "${appIDResponse}".indexOf("<?xml")
                     int intEndXML2 = "${appIDResponse}".indexOf("</applist>")
                     strXML2 = "${appIDResponse}".substring(intBeginXML2, intEndXML2 + 10)
-                    echo "strXML2: ${strXML2}"
+                    //echo "strXML2: ${strXML2}"
                     def parseXML2 = new XmlParser().parseText(strXML2)
-                    echo "parseXML2: ${parseXML2}"
+                    //echo "parseXML2: ${parseXML2}"
 
                     if(parseXML2.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString() != "[]"){ //There's a "," after app profile name
                         appXMLRecord2 = parseXML2.'*'.findAll { it.toString().indexOf("app_name=${appProfileName},") != -1 }.toString()
