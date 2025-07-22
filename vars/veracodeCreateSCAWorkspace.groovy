@@ -8,51 +8,39 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
     def wkspName = new String("${PRODUCT_ID}_${REPO_NAME}")
     def siteID = ""
 
-
-    //Validate if a Workspace with the name wkspName exists
     try {
-        //Get workspaces list
-        sh 'http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces > workspaces.json'
-        def jsonWorkspaces = readJSON file: 'workspaces.json'
-        def intWorkspaces = jsonWorkspaces._embedded.workspaces.size()
-        if(intWorkspaces != 0) {
-            def intIndex = 0
-            def wkspID = ""
-            //Get site_id for that specific workspace, by using workspace ID (wkspID)
-            while(intIndex < intWorkspaces && siteID == ""){
-                if(jsonWorkspaces._embedded.workspaces[intIndex].name == wkspName) {siteID = jsonWorkspaces._embedded.workspaces[intIndex].site_id}
-                intIndex = intIndex + 1
-            }
+        //Validates if a Workspace with the name wkspName exists
+        siteID = getSiteID(wkspName)
 
-            if(siteID != "") { //A workspace with wkspName name exists! It will set up SRCCLR_WORKSPACE_SLUG env variable with site_id value
-                println("[INFO] Workspace exists.") 
-                println("[INFO] Workspace name: ${wkspName}")
-                println("[INFO] Workspace's Site ID: ${siteID}")
-            }
-            else { // A workspace is created with the name ${wkspName}
-                println("[INFO] Creating ${wkspName} workspace...")
-                sh "echo -n '{\"name\": \"${wkspName}\"}' | http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces"
-                strPrueba = holaMundo()
-                echo "${strPrueba}"
-                /*********************************************/
-                //To create a new workspace with name wkspName
-                /*********************************************/
-            }
+        if(siteID == "") { //A workspace with wkspName name doesn't exist! A new one is created
+            println("[INFO] Creating ${wkspName} workspace...")
+            sh "echo -n '{\"name\": \"${wkspName}\"}' | http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces"
+            strPrueba = holaMundo()
+            echo "${strPrueba}"
         }
-        else{
-            println("Aqui hay que crear un nuevo workspace!")
-            /*********************************************/
-            //To create a new workspace with name wkspName
-            /*********************************************/
-        }
-
     } catch(Exception ex) {
         println(ex)
     }
 
-    return siteID
+    return siteID //Finally it returns the site_id of the workspace
 }
 
-def String holaMundo(){
-    return 'Hola Mundo'
+def String getSiteID(String strWkspName){
+    def siteID = ""
+        
+    //Get workspaces list
+    sh 'http --auth-type veracode_hmac GET https://api.veracode.com/srcclr/v3/workspaces > workspaces.json'
+    def jsonWorkspaces = readJSON file: 'workspaces.json'
+    def intWorkspaces = jsonWorkspaces._embedded.workspaces.size()
+    if(intWorkspaces != 0) {
+        def intIndex = 0
+
+        //Get site_id for that specific workspace, by using workspace name (wkspName)
+        while(intIndex < intWorkspaces && siteID == ""){
+            if(jsonWorkspaces._embedded.workspaces[intIndex].name == wkspName) {siteID = jsonWorkspaces._embedded.workspaces[intIndex].site_id}
+            intIndex = intIndex + 1
+        }
+    }
+    
+    return strSiteID
 }
