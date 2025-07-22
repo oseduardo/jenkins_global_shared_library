@@ -29,10 +29,11 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
                 println("[INFO] Workspace name: ${wkspName}")
                 println("[INFO] Workspace's Site ID: ${siteID}")
             }
-            else {
+            else { // A workspace is created with the name ${wkspName}
                 println("[INFO] Creating ${wkspName} workspace...")
-                sh "echo -n '{\"name\": \"${wkspName}\"}' | http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces > myWorkspace.json"
-                sh 'cat myWorkspace.json'
+                sh "echo -n '{\"name\": \"${wkspName}\"}' | http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces"
+                strPrueba = holaMundo()
+                echo "${strPrueba}"
                 /*********************************************/
                 //To create a new workspace with name wkspName
                 /*********************************************/
@@ -50,4 +51,8 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
     }
 
     return siteID
+}
+
+def String holaMundo(){
+    return 'Hola Mundo'
 }
