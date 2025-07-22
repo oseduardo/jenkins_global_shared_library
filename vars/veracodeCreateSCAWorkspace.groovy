@@ -15,7 +15,6 @@ def call(String REPO_NAME, String PRODUCT_NAME, String PRODUCT_ID) {
         if(siteID == "") { //A workspace with wkspName name doesn't exist! A new one is created
             println("[INFO] Creating ${wkspName} workspace...")
             sh "echo -n '{\"name\": \"${wkspName}\"}' | http --auth-type veracode_hmac POST https://api.veracode.com/srcclr/v3/workspaces"
-            strPrueba = holaMundo()
             println("[INFO] Workspace ${wkspName} has been created successfully!")
             
             //Get the site_id of the new workspace created
@@ -45,5 +44,5 @@ def String getSiteID(String strWkspName){
         }
     }
     
-    return strSiteID
+    return siteID
 }
