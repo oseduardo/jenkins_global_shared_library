@@ -1,6 +1,12 @@
-def call(String vID, String vKEY) {
+def call(String ARTIFACTS_PATH, String vID, String vKEY) {
+    // Launches a Pipeline Scan
+    // ARTIFACTS_PATH: Relative path in pipeline agent where built artifacts are available to upload for scanning
+
     echo "[INFO] Veracode SAST - Pipeline Scan"
     echo "[INFO] Downloading Pipeline Scan (Latest Version)..."
+    echo "[INFO] Veracode SAST - Policy Scan"
+    echo "[INFO] Getting artifacts from ${ARTIFACTS_PATH}"
+
     script {
         sh "curl -sSO https://downloads.veracode.com/securityscan/pipeline-scan-LATEST.zip"
         sh "unzip -o pipeline-scan-LATEST.zip"
