@@ -2,7 +2,7 @@ def call(String APP_PROFILE, String SANDBOX_NAME, String ARTIFACTS_PATH, String 
     // Launches a Sandbox Scan in Veracode platform
     // APP_PROFILE: Application profile where target sandbox is located
     // SANDBOX_NAME: Especific sandbox where scan results will be uploaded
-    // ARTIFACTS_PATH: Relative path in pipeline agent where built artifacts are available to upload for scanning
+    // ARTIFACTS_PATH: Folder path in pipeline agent where built artifacts are available to upload for scanning
     echo "[INFO] Veracode SAST - Sandbox Scan"
     echo "[INFO] APP PROFILE NAME: ${APP_PROFILE}"
     echo "[INFO] Getting artifacts from ${ARTIFACTS_PATH}"

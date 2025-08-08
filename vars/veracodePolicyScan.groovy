@@ -1,7 +1,7 @@
 def call(String APP_PROFILE, String ARTIFACTS_PATH, String VID, String VKEY) {
     // Launches a Policy Scan in Veracode platform
     // APP_PROFILE: Application profile where target sandbox is located
-    // ARTIFACTS_PATH: Relative path in pipeline agent where built artifacts are available to upload for scanning
+    // ARTIFACTS_PATH: Folder path in pipeline agent where built artifacts are available to upload for scanning
     echo "[INFO] Veracode SAST - Policy Scan"
     echo "[INFO] APP PROFILE NAME: ${APP_PROFILE}"
     echo "[INFO] Getting artifacts from ${ARTIFACTS_PATH}"

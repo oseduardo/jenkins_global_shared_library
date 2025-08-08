@@ -1,6 +1,6 @@
 def call(String ARTIFACTS_PATH, String vID, String vKEY) {
     // Launches a Pipeline Scan
-    // ARTIFACTS_PATH: Relative path in pipeline agent where built artifacts are available to upload for scanning
+    // ARTIFACTS_PATH: Folder path in pipeline agent where built artifacts are available to upload for scanning
 
     echo "[INFO] Veracode SAST - Pipeline Scan"
     echo "[INFO] Downloading Pipeline Scan (Latest Version)..."
