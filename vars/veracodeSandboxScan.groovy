@@ -8,8 +8,7 @@ def call(String APP_PROFILE, String SANDBOX_NAME, String ARTIFACTS_PATH, String 
     echo "[INFO] Getting artifacts from ${ARTIFACTS_PATH}"
     echo "[INFO] Starting Veracode Sandbox Scan..."
 
-    sh "ls -all ${ARTIFACTS_PATH}"
+    sh "ls -all"
 
-
-    veracode applicationName: "${APP_PROFILE}", createProfile: false, createSandbox: true, criticality: 'VeryHigh', canFailJob: true, deleteIncompleteScanLevel: '2', fileNamePattern: '', replacementPattern: '', sandboxName: "${SANDBOX_NAME}", scanExcludesPattern: '', scanIncludesPattern: '', scanName: '${BUILD_NUMBER}', teams: '', timeout: 60, uploadIncludesPattern: "${ARTIFACTS_PATH}/*.*", vid: "${VID}", vkey: "${VKEY}", waitForScan: true, ScanAllNonFatalTopLevelModules: true, IncludeNewModules: true
+    veracode applicationName: "${APP_PROFILE}", createProfile: false, createSandbox: true, criticality: 'VeryHigh', canFailJob: true, deleteIncompleteScanLevel: '2', fileNamePattern: '', replacementPattern: '', sandboxName: "${SANDBOX_NAME}", scanExcludesPattern: '', scanIncludesPattern: '', scanName: '${BUILD_NUMBER}', teams: '', timeout: 60, uploadIncludesPattern: "veracode-artifacts/*.*", vid: "${VID}", vkey: "${VKEY}", waitForScan: true, ScanAllNonFatalTopLevelModules: true, IncludeNewModules: true
 }
