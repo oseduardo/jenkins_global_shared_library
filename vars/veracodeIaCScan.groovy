@@ -12,7 +12,8 @@ def call() {
         //sh 'export VERACODE_API_KEY_ID=' + ${VID}
         //sh 'export VERACODE_API_KEY_SECRET=' + ${VKEY}
         
-        sh './veracode scan --type directory --source . --format table --output cs_iac_results.txt'
+        def strResult = "./veracode scan --type directory --source . --format table --output cs_iac_results.txt".execute().text
+        echo "strResult: ${strResult}"
         //sh 'cat cs_iac_results.txt'
 
         // Reading results file
