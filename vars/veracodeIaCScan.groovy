@@ -17,7 +17,7 @@ def call() {
             else
                 '[INFO] There was a problem while executing Veracode Container Security!'
             fi
-
+            
             exit $STATUS
         """
     }
