@@ -12,7 +12,8 @@ def call() {
         sh "export VERACODE_API_KEY_SECRET=${VKEY}"
 
         sh "./veracode scan --type directory --source . --format table --output cs_iac_results.txt"
-        sh "cat cs_iac_results.txt"
+        sh 'ls -all'
+        sh 'cat cs_iac_results.txt'
 
         // Reading results file
         File myFile = new File("cs_iac_results.txt")
