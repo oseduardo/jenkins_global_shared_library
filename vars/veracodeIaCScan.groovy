@@ -1,7 +1,6 @@
 def call() {
     // Executes Veracode Container Security by running Veracode CLI tool to scan IaC files on local directory (work directory) of jenkins pipeline
     echo "[INFO] Veracode IaC Scan"
-    sh './veracode version'
 
     withCredentials([usernamePassword(credentialsId: 'veracode-creds', usernameVariable: 'VID', passwordVariable: 'VKEY')]){
         // Download Veracode CLI tool to run Veracode Container Security
