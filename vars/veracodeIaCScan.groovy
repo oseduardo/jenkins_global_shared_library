@@ -12,9 +12,7 @@ def call() {
         //sh 'export VERACODE_API_KEY_ID=' + ${VID}
         //sh 'export VERACODE_API_KEY_SECRET=' + ${VKEY}
         
-        sh '''
-            echo "[PRUEBA] dentro del withCredentials y dentro del sh"
-        '''
+        sh './veracode scan --type directory --source . --format table --output cs_iac_results.txt'
         //sh 'cat cs_iac_results.txt'
 
         // Reading results file
