@@ -13,7 +13,25 @@ def call() {
         //sh 'export VERACODE_API_KEY_SECRET=' + ${VKEY}
             
         def STATUS = sh returnStatus: true, script: "veracode scan --type directory --source . --format table --output cs_iac_results.txt"
+        sh 'cat cs_iac_results.txt'
         echo "STATUS: ${STATUS}"
+        sh """
+            if [ $STATUS -ne 0 ]
+            then
+                echo '[INFO] Scan was succesfull and there are no issues.'
+                echo ''
+                exit 0
+            elif [ $STATUS -ne 3 ]
+            then
+                echo '[INFO] Scan was succesfull but there are some issues!'
+                echo ''
+                exit 0
+            else
+                '[INFO] There was a problem while executing Container Security!'
+                echo ''
+                exit $STATUS
+            fi
+        """
 
         // Reading results file
         /*File myFile = new File("cs_iac_results.txt")
