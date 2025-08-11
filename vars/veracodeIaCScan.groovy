@@ -6,6 +6,7 @@ def call() {
         // Download Veracode CLI tool to run Veracode Container Security
         echo "[INFO] Downloding and installing Veracode CLI..."
         sh "curl -fsS https://tools.veracode.com/veracode-cli/install | sh"
+        sh './veracode version'
 
         // Setting up Veracode API Credentials
         sh 'export VERACODE_API_KEY_ID=' + ${VID}
