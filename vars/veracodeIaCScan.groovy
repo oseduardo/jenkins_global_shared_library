@@ -1,4 +1,4 @@
-def call(String REPO_URL, String BRANCH_TO_SCAN) {
+def call() {
     // Executes Veracode Container Security by running Veracode CLI tool to scan IaC files on local directory (work directory) of jenkins pipeline
     echo "[INFO] Veracode IaC Scan"
 
