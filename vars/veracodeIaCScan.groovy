@@ -4,40 +4,21 @@ def call() {
     echo "[INFO] Veracode IaC Scan"
 
     script {
-        // Download Veracode CLI tool to run Veracode Container Security
-        //echo "[INFO] Downloding and installing Veracode CLI..."
-        //sh "curl -fsS https://tools.veracode.com/veracode-cli/install | sh"
-
-        // Setting up Veracode API Credentials
-        //sh 'export VERACODE_API_KEY_ID=' + ${VID}
-        //sh 'export VERACODE_API_KEY_SECRET=' + ${VKEY}
-            
         def STATUS = sh returnStatus: true, script: "veracode scan --type directory --source . --format table --output cs_iac_results.txt"
         sh 'cat cs_iac_results.txt'
         echo "STATUS: ${STATUS}"
         sh """
-            if [ $STATUS -ne 0 ]
+            if [ $STATUS -eq 3 ]
             then
-                echo '[INFO] Scan was succesfull and there are no issues.'
-                echo ''
-                exit 0
-            elif [ $STATUS -ne 3 ]
+                echo '[INFO] Scan was succesfull but there are some issues. Scanned application did not pass policy!'
+            elif [ $STATUS -eq 0 ]
             then
-                echo '[INFO] Scan was succesfull but there are some issues!'
-                echo ''
-                exit 0
+                echo '[INFO] Scan was succesfull and passed policy!'
             else
-                '[INFO] There was a problem while executing Container Security!'
-                echo ''
-                exit $STATUS
+                '[INFO] There was a problem while executing Veracode Container Security!'
             fi
-        """
 
-        // Reading results file
-        /*File myFile = new File("cs_iac_results.txt")
-        List<String> lstIaCResults = myFile.readLines()
-        String strPolicyEvaluation = ""
-        strPolicyEvaluation = lstIaCResults.findAll { it.substring(0, 12) == "Policy Passed" }
-        echo "Prueba: ${strPolicyEvaluation}"*/
+            exit $STATUS
+        """
     }
 }
