@@ -14,7 +14,6 @@ def call() {
         
         sh '''
             echo "[PRUEBA] dentro del withCredentials y dentro del sh"
-//            ./veracode scan --type directory --source . --format table --output cs_iac_results.txt
         '''
         //sh 'cat cs_iac_results.txt'
 
