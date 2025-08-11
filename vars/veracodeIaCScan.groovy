@@ -1,47 +1,24 @@
-def call() {
-    // Executes Veracode Container Security by running Veracode CLI tool to scan IaC files on local directory
+def call(String REPO_URL, String BRANCH_TO_SCAN) {
+    // Executes Veracode Container Security by running Veracode CLI tool to scan IaC files on local directory (work directory) of jenkins pipeline
     echo "[INFO] Veracode IaC Scan"
 
     withCredentials([usernamePassword(credentialsId: 'veracode-creds', usernameVariable: 'VID', passwordVariable: 'VKEY')]){
-        sh """
-            handle_cs_code() {
-                echo ''
-                EXIT_CODE=$?
-                echo '[INFO] Veracode Container Security - Scan Result: ' $EXIT_CODE
-                echo ''
-                if [ $EXIT_CODE -ne 0 ]
-                then
-                    echo '[INFO] Scan was succesfull and there are no issues.'
-                    echo ''
-                    exit 0
-                elif [ $EXIT_CODE -ne 3 ]
-                then
-                    echo '[INFO] Scan was succesfull but there are some issues!'
-                    echo ''
-                    exit 0
-                else
-                    '[INFO] There was a problem while executing Container Security!'
-                    echo ''
-                    exit $EXIT_CODE
-                fi
-            }
+        // Download Veracode CLI tool to run Veracode Container Security
+        echo "[INFO] Downloding and installing Veracode CLI..."
+        sh "curl -fsS https://tools.veracode.com/veracode-cli/install | sh"
 
-            echo '[INFO] Starting Veracode IaC Scan...'
-            curl -fsS https://tools.veracode.com/veracode-cli/install | sh
-            export VERACODE_API_KEY_ID=${VID}
-            export VERACODE_API_KEY_SECRET=${VKEY}
-            trap 'handle_cs_code $1' ERR
-            ./veracode scan --type directory --source . --format table --output cs_results.json
+        // Setting up Veracode API Credentials
+        sh "export VERACODE_API_KEY_ID=${VID}"
+        sh "export VERACODE_API_KEY_SECRET=${VKEY}"
 
-            echo '[INFO] Validating Veracode IaC results...'
-            cat cs_results.json
-            echo ''
-            PASS=$(cat cs_results.json | grep "Policy Passed = " | awk '{print $4}')
-            if $PASS; then
-              exit 0
-            else
-              exit 1
-            fi            
-        """
+        sh "./veracode scan --type directory --source . --format table --output cs_iac_results.txt"
+        sh "cat cs_iac_results.txt"
+
+        // Reading results file
+        File myFile = new File("cs_iac_results.txt")
+        List<String> lstIaCResults = myFile.readLines()
+        String strPolicyEvaluation = ""
+        strPolicyEvaluation = lstIaCResults.findAll { it.substring(0, 12) == "Policy Passed" }
+        echo "Prueba: ${strPolicyEvaluation}"
     }
 }
