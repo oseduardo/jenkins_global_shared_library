@@ -8,6 +8,6 @@ def call(String APP_PROFILE, String SANDBOX_NAME) {
 
     // Launch Veracode Sandbox Scan by using veracode plugin for Jenkins
     withCredentials([usernamePassword(credentialsId: 'veracode-creds', usernameVariable: 'VID', passwordVariable: 'VKEY')]){
-        veracode applicationName: "${APP_PROFILE}", createProfile: false, createSandbox: true, criticality: 'VeryHigh', canFailJob: true, deleteIncompleteScanLevel: '2', fileNamePattern: '', replacementPattern: '', sandboxName: "${SANDBOX_NAME}", scanExcludesPattern: '', scanIncludesPattern: '', scanName: '${BUILD_NUMBER}', teams: '', timeout: 60, uploadIncludesPattern: "veracode-artifacts/*.*", vid: VID, vkey: VKEY, waitForScan: true, ScanAllNonFatalTopLevelModules: true, IncludeNewModules: true
+        veracode applicationName: "${APP_PROFILE}", createProfile: false, createSandbox: true, criticality: 'VeryHigh', canFailJob: true, deleteIncompleteScanLevel: '2', fileNamePattern: '', replacementPattern: '', sandboxName: "${SANDBOX_NAME}", scanExcludesPattern: '', scanIncludesPattern: '', scanName: '${BUILD_NUMBER}', teams: '', timeout: 60, uploadIncludesPattern: "veracode-artifacts/*.*", vid: VID, vkey: VKEY, waitForScan: false, ScanAllNonFatalTopLevelModules: true, IncludeNewModules: true
     }
 }
