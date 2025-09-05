@@ -13,7 +13,10 @@ def call(String APP_PROFILE, String SANDBOX_NAME) {
         }
     } catch(hudson.AbortException hEx) {
         echo "Entro a excepción!"
-        println(hEx.getMessage())
+        Throwable cause = hEx.getCause()
+        println("Cause of AbortException: " + cause.getClass().getName())
+        println("Cause message: " + cause.getMessage())
+        //println(hEx.getMessage())
         return hEx
     }
 
