@@ -13,7 +13,7 @@ def call(String APP_PROFILE, String SANDBOX_NAME) {
         }
     } catch(hudson.AbortException hEx) {
         echo "Entro a excepción!"
-        println(hEx)
+        println(hEx.getMessage())
         return hEx
     }
 
